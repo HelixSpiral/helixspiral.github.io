@@ -130,7 +130,7 @@ network<span style="color:#f92672">={</span>
 <h1 id="setting-up-the-salt-master">Setting up the Salt Master</h1>
 <p>To keep things simple I used the <code>bootstrap-salt.sh</code> script from <a href="https://bootstrap.saltstack.com">here</a><sup id="fnref:2"><a href="#fn:2" class="footnote-ref" role="doc-noteref">2</a></sup></p>
 <p>Once downloaded run the following command <code>sudo ./bootstrap-salt.sh -M -A [SALT-MASTER-HOSTNAME]</code></p>
-<p>Once that&rsquo;s finished installing our Salt setup has a couple of custom extension modules to get custom pillar data so we need to make a couple of changes to the <code>/etc/salt/master</code> file on our master.</p>
+<p>After that&rsquo;s finished installing we have to make a couple of changes to our <code>/etc/salt/master</code> file. This is because we have custom pillar extensions to get certain information from our Kubernetes master for our nodes to use.</p>
 <ol>
 <li>Change the <code>extension_modules</code> setting to <code>extension_modules: /srv/ext</code></li>
 <li>Change the <code>ext_pillar</code> setting to:</li>
@@ -138,13 +138,13 @@ network<span style="color:#f92672">={</span>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml"><span style="color:#f92672">ext_pillar</span>:
   - <span style="color:#f92672">kubetoken</span>: []
   - <span style="color:#f92672">kubecert</span>: []
-</code></pre></div><p>Once this is done you can reboot the salt master with <code>sudo systemctl restart salt-master</code>.</p>
+</code></pre></div><p>Once this is done you need to reboot the salt master with <code>sudo systemctl restart salt-master</code>.</p>
 <h1 id="setting-up-salt-minions">Setting up Salt Minions</h1>
 <p>We use the same bootstrap script<sup id="fnref:2"><a href="#fn:2" class="footnote-ref" role="doc-noteref">2</a></sup> from earlier but without the <code>-M</code> flag: <code>sudo ./bootstrap-salt.sh -A [SALT-MASTER-HOSTNAME]</code></p>
-<p>Once you run this command it&rsquo;ll bootstrap your minion and tell it to check in with the master at the hostname you provided. After this is done you shouldn&rsquo;t have to connect to the minion directly anymore and everything can be managed from the master node.</p>
+<p>When you run this command it&rsquo;ll bootstrap your minion and tell it to check in with the master at the hostname you provided. After this is done you shouldn&rsquo;t have to connect to the minion directly anymore and everything can be managed from the master node.</p>
 <p>Now we have to accept our minion keys on the salt master. We do this by listing all the keys with <code>sudo salt-key -L</code> and then accepting the keys with <code>sudo salt-key -a minion-id-here</code>.</p>
 <p>If you&rsquo;re following along you should have two IDs ready to be accepted, the master and the minion. Accept both.</p>
-<p>To test connectivity to your salt minions you can run <code>sudo salt '*' test.ping</code> on the salt master, you should get some output like:</p>
+<p>To test connectivity to your salt minions you can run <code>sudo salt '*' test.ping</code> on the salt master, you should get some output like this:</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml"><span style="color:#f92672">rpi-cluster-master</span>:
   <span style="color:#66d9ef">True</span>
 <span style="color:#f92672">rpi-cluster-minion-1</span>:
