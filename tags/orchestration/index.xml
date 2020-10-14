@@ -9,10 +9,10 @@
     <lastBuildDate>Tue, 13 Oct 2020 00:00:00 +0000</lastBuildDate><atom:link href="https://helixspiral.github.io/tags/orchestration/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Automating Kubernetes with Saltstack</title>
-      <link>https://helixspiral.github.io/posts/2020-10-13-rpi-cluster/</link>
+      <link>https://helixspiral.github.io/posts/2020-10-13-automating-kubernetes-with-saltstack/</link>
       <pubDate>Tue, 13 Oct 2020 00:00:00 +0000</pubDate>
       
-      <guid>https://helixspiral.github.io/posts/2020-10-13-rpi-cluster/</guid>
+      <guid>https://helixspiral.github.io/posts/2020-10-13-automating-kubernetes-with-saltstack/</guid>
       <description>Overview My goal for this project was to setup and manage a Kubernetes cluster using Saltstack, the idea being that since I wanted to learn them both if I could automate the setup of the cluster I&amp;rsquo;d be killing two birds with one stone.
 I found a few good blog posts on this but all the ones I found lacked the level of automation I was looking for, some had hard coded values and others had manual commands needing to be run on the minions.</description>
     </item>
