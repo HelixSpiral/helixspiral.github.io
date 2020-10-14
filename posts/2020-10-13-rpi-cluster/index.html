@@ -7,7 +7,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="author" content="Shawn Smith" />
     <meta name="description" content="Walking through a Saltstack setup I did that automates a Kubernetes cluster configuration." />
-    <base href="https://helixspiral.github.io " />
     <link rel="stylesheet" href="https://helixspiral.github.io/css/main.min.88e7083eff65effb7485b6e6f38d10afbec25093a6fac42d734ce9024d3defbd.css" />
 
     
@@ -39,7 +38,7 @@ if (!doNotTrack) {
   </head>
   <body>
     <header class="app-header">
-      <a href="https://helixspiral.github.io"><img class="app-header-avatar" src="/blog_avatar.jpg" alt="Shawn Smith" /></a>
+      <a href="https://helixspiral.github.io/"><img class="app-header-avatar" src="/blog_avatar.jpg" alt="Shawn Smith" /></a>
       <h1>Helix&#39;s Blog</h1>
       <nav class="app-header-menu">
           <a class="app-header-menu-item" href="/">Home</a>
@@ -105,9 +104,7 @@ if (!doNotTrack) {
       </div>
     </header>
     <div class="post-content">
-      <h1 id="intro">Intro</h1>
-<p>I&rsquo;ve been looking to get better with infrastructure automation and container orchestration so as a learning exercise I wanted to setup a Kubernetes cluster that is deployed in an automated way from Saltstack.</p>
-<h1 id="overview">Overview</h1>
+      <h1 id="overview">Overview</h1>
 <p>My goal for this project was to setup and manage a Kubernetes cluster using Saltstack, the idea being that since I wanted to learn them both if I could automate the setup of the cluster I&rsquo;d be killing two birds with one stone.</p>
 <p>I found a few good blog posts on this but all the ones I found lacked the level of automation I was looking for, some had hard coded values and others had manual commands needing to be run on the minions. For me this wasn&rsquo;t good enough for what I wanted to do and learn so I&rsquo;m writing this post detailing how I created my setup and what I learned along the way.</p>
 <p>This blog post will have the setup steps I took as reflected in my current setup, if you&rsquo;re following this blog and not using the same equipment or operating systems your mileage may vary.</p>
@@ -144,7 +141,17 @@ network<span style="color:#f92672">={</span>
   <span style="color:#66d9ef">True</span>
 <span style="color:#f92672">rpi-cluster-minion-1</span>:
   <span style="color:#66d9ef">True</span>
-</code></pre></div><h1 id="configuring-user-accounts">Configuring user accounts</h1>
+</code></pre></div><h1 id="editing-etcsaltmaster">Editing /etc/salt/master</h1>
+<p>Our Salt setup has a couple of custom extension modules to get custom pillar data so we need to make a couple of changes to this file on our salt master.</p>
+<ol>
+<li>Change the <code>extension_modules</code> setting to <code>extension_modules: /srv/ext</code></li>
+<li>Change the <code>ext_pillar</code> setting to:</li>
+</ol>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml"><span style="color:#f92672">ext_pillar</span>:
+  - <span style="color:#f92672">kubetoken</span>: []
+  - <span style="color:#f92672">kubecert</span>: []
+</code></pre></div><p>Once this is done you can reboot the salt master with <code>sudo systemctl restart salt-master</code>.</p>
+<h1 id="configuring-user-accounts">Configuring user accounts</h1>
 <p>Create an ssh key and copy the public key for ssh key authentication into the the <code>salt/ssh_keys</code> folder in a file named <code>[username].id_rsa.pub</code>.<sup id="fnref:3"><a href="#fn:3" class="footnote-ref" role="doc-noteref">3</a></sup></p>
 <p>I&rsquo;m using the default Raspberry Pi user of <code>pi</code>, if you wish to change it you can do so in the <code>users.sls</code> file and naming the above mentioned public key to your user.</p>
 <h1 id="configuring-a-raspberry-pi-device-to-run-kubernetes">Configuring a Raspberry Pi device to run Kubernetes</h1>

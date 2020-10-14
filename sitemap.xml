@@ -3,6 +3,11 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
+    <loc>https://helixspiral.github.io/</loc>
+    <lastmod>2020-10-13T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://helixspiral.github.io/posts/2020-10-13-rpi-cluster/</loc>
     <lastmod>2020-10-13T00:00:00+00:00</lastmod>
   </url>
@@ -19,11 +24,6 @@
   
   <url>
     <loc>https://helixspiral.github.io/tags/docker/</loc>
-    <lastmod>2020-10-13T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://helixspiral.github.io/</loc>
     <lastmod>2020-10-13T00:00:00+00:00</lastmod>
   </url>
   
