@@ -1,0 +1,158 @@
+<!doctype html>
+<html lang="en-us">
+  <head>
+    <title>Ensuring backwards compatibility in deployments by leveraging git tags // Helix&#39;s Blog</title>
+    <meta charset="utf-8" />
+    <meta name="generator" content="Hugo 0.76.4" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="author" content="Shawn Smith" />
+    <meta name="description" content="We&#39;re creating a REST API and ensuring backwards compatibility in our deployments by leveraging git tags as an automated versioning system." />
+    <link rel="stylesheet" href="https://helixspiral.github.io/css/main.min.88e7083eff65effb7485b6e6f38d10afbec25093a6fac42d734ce9024d3defbd.css" />
+
+    
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+	ga('create', 'UA-180576724-1', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+
+    <meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Ensuring backwards compatibility in deployments by leveraging git tags"/>
+<meta name="twitter:description" content="We&#39;re creating a REST API and ensuring backwards compatibility in our deployments by leveraging git tags as an automated versioning system."/>
+
+    <meta property="og:title" content="Ensuring backwards compatibility in deployments by leveraging git tags" />
+<meta property="og:description" content="We&#39;re creating a REST API and ensuring backwards compatibility in our deployments by leveraging git tags as an automated versioning system." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://helixspiral.github.io/posts/2021-04-02-using-git-tags-to-ensure-deployment-backwards-compability/" />
+<meta property="article:published_time" content="2021-04-02T00:00:00+00:00" />
+<meta property="article:modified_time" content="2021-04-02T00:00:00+00:00" />
+
+
+  </head>
+  <body>
+    <header class="app-header">
+      <a href="https://helixspiral.github.io/"><img class="app-header-avatar" src="/blog_avatar.jpg" alt="Shawn Smith" /></a>
+      <h1>Helix&#39;s Blog</h1>
+      <nav class="app-header-menu">
+          <a class="app-header-menu-item" href="/">Home</a>
+             - 
+          
+          <a class="app-header-menu-item" href="/tags/">Tags</a>
+      </nav>
+      <p>Personal blog that may contain a wide range of content</p>
+      <div class="app-header-social">
+        
+          <a target="_blank" href="https://github.com/HelixSpiral" rel="noreferrer noopener"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-github">
+  <title>github</title>
+  <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path>
+</svg></a>
+        
+          <a target="_blank" href="https://twitter.com/SpiralingHelix" rel="noreferrer noopener"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-twitter">
+  <title>twitter</title>
+  <path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"></path>
+</svg></a>
+        
+          <a target="_blank" href="https://www.linkedin.com/in/shawnsmith08/" rel="noreferrer noopener"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-linkedin">
+  <title>linkedin</title>
+  <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect x="2" y="9" width="4" height="12"></rect><circle cx="4" cy="4" r="2"></circle>
+</svg></a>
+        
+      </div>
+    </header>
+    <main class="app-container">
+      
+  <article class="post">
+    <header class="post-header">
+      <h1 class ="post-title">Ensuring backwards compatibility in deployments by leveraging git tags</h1>
+      <div class="post-meta">
+        <div>
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-calendar">
+  <title>calendar</title>
+  <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line>
+</svg>
+          Apr 2, 2021
+        </div>
+        <div>
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-clock">
+  <title>clock</title>
+  <circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline>
+</svg>
+          5 min read
+        </div>
+        <div>
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tag">
+  <title>tag</title>
+  <path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7" y2="7"></line>
+</svg>
+              <a class="tag" href="https://helixspiral.github.io/tags/api/">api</a>
+              <a class="tag" href="https://helixspiral.github.io/tags/rest-api/">rest-api</a>
+              <a class="tag" href="https://helixspiral.github.io/tags/go/">go</a>
+              <a class="tag" href="https://helixspiral.github.io/tags/golang/">golang</a>
+              <a class="tag" href="https://helixspiral.github.io/tags/deployment/">deployment</a>
+              <a class="tag" href="https://helixspiral.github.io/tags/backwards-compatibility/">backwards-compatibility</a>
+              <a class="tag" href="https://helixspiral.github.io/tags/automation/">automation</a>
+              <a class="tag" href="https://helixspiral.github.io/tags/scaling/">scaling</a>
+              <a class="tag" href="https://helixspiral.github.io/tags/scalability/">scalability</a>
+              <a class="tag" href="https://helixspiral.github.io/tags/git/">git</a>
+              <a class="tag" href="https://helixspiral.github.io/tags/git-tags/">git-tags</a>
+        </div>
+      </div>
+    </header>
+    <div class="post-content">
+      <h1 id="overview">Overview</h1>
+<p>I recently came across <a href="https://blog.alexellis.io/inject-build-time-vars-golang/">a blog post</a> on injecting variables into Golang at build time and that gave me the idea for this blog post. Automating versioning and ensuring backwards compatibility.</p>
+<h1 id="github-repository-and-sample-application">GitHub repository and sample application</h1>
+<p>You can find the code for this application <a href="https://github.com/HelixSpiral/rest-api-automatic-versioning-tutorial">here, on my GitHub</a></p>
+<h1 id="git-tags-and-versioning">Git tags and versioning</h1>
+<p>This blog post assumes some basic understanding of the git version control system. For anyone new to it you can probably get by with thinking that <code>commits</code> are incremental changes to the software and <code>tags</code> are user-created labels that reference a specific <code>commit</code>.</p>
+<p>Versioning using git tags is a pretty common practice. The way I like to have my automation setup is the main branch of a repository is wired to auto-deploy any changes to a staging/QA environment for testing, while any tags that meet certain criteria are wired to auto-deploy to a production environment. For example tags could be in <code>vMajor.Minor.Revision</code> or <code>release/vMajor.Minor.Revision</code> format.</p>
+<p>For this blog post we&rsquo;re using the format of <code>vMajor.Minor.Revision</code>.</p>
+<h1 id="injecting-the-version-during-the-build">Injecting the version during the build</h1>
+<p>The blog post I linked from Alex Ellis does a good job explaining injecting variables at build time so I don&rsquo;t go too deep into that.</p>
+<p>The basic gist of what we&rsquo;re doing is creating a string variable named <code>APIVersion</code><sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup> and then injecting the value we want that to be in when we build the application, in this case we want it to be <code>v#</code> where <code>#</code> is the major version number of our application.</p>
+<p>To build our application we use <code>go build -ldflags &quot;-X main.APIVersion=[versionhere]&quot;</code>, so for example for <code>v1</code> we would use <code>go build -ldflags &quot;-X main.APIVersion=v1&quot;</code>.</p>
+<h1 id="ensuring-backwards-compatibility">Ensuring backwards compatibility</h1>
+<p>With a properly versioned API it&rsquo;s almost trivial to maintain and ensure backwards compatibility, but it does take a little thought during the initial setup to make everything smooth and easily maintainable.</p>
+<p>For this blog post we&rsquo;re using the format of <code>http://domain.com/[apiVersion]/...</code>, where <code>apiVersion</code> is the <code>vMajor</code> version from our git tags.</p>
+<p>In the sample API I wrote for this blog post you can see I&rsquo;ve created several git tags, the first being <code>v1.0.0</code> and it references the initial commit to the repo. We&rsquo;ve created the initial git tag and from here on out we can&rsquo;t make any changes that would break applications relying on the format and structure of the API URLs and JSON response.</p>
+<p>However, we do have some wiggle room here. Since we&rsquo;re returning JSON we can add new fields to the JSON output without breaking backwards compatibility, the next git tag <code>v1.0.1</code> does this and adds a Description field in the JSON response.</p>
+<p>We can also add new API endpoints because any application created prior to the new additions will still work as intended, it just wont have the new functionality. This keeps backwards compatibility while adding new features. The next git tag of <code>v1.0.2</code> does this by allowing us to append <code>/itemNumber</code> to the end of the <code>/items</code> endpoint to return a specific item.</p>
+<p>If you look at the commit referenced with tag <code>v1.0.2</code> you&rsquo;ll notice that we do slightly change a legacy endpoint from <code>/items</code> to <code>/items/</code>, this is okay because <code>/items</code> now automatically redirects to <code>/items/</code>. Even if a legacy application is using the URL without the slash it will still work as intended, so backwards compatibility is still ensured.</p>
+<h1 id="making-a-breaking-change">Making a breaking change</h1>
+<p>The next versioning tag in the sample API makes a breaking change, we&rsquo;re altering the structure of the JSON response for the <code>/items/</code> endpoint, returning <code>[{item1},{item2},...]</code> instead of <code>{&quot;Items&quot;: [{item1},{item2},...]}</code>.</p>
+<p>Since this is a breaking change any application that relies on the previous structure will stop working, to prevent this we cannot deploy the new API version to the previous endpoint, and this is where versioning comes in handy.</p>
+<p>The previous versions of the API were tagged with <code>v1.0.x</code> and use a url format of <code>/v1/...</code>, with our current setup to maintain backwards compatibility all we have to do is bump the major version number of our git tags, so our new version becomes <code>v2.0.0</code> instead of <code>v1.0.3</code></p>
+<h1 id="automating-the-build-process">Automating the build process</h1>
+<p>Given the vast amount of tools for automation and CI/CD setups I&rsquo;m not going to go in depth into any particular software but instead speak mostly in generic process outline here.</p>
+<p>The first step to automating is getting our latest git tag, cutting it down from <code>vMajor.Minor.Revision</code> to <code>vMajor</code>, and injecting that into our build process. The simplest way to do this is something along the lines of this: <code>git describe --abbrev=0 --tags | cut -d'.' -f1</code>.</p>
+<p>Now that we have our latest git tag we save it as a variable in our automation software of choice and inject it into the build with <code>go build -ldfags &quot;-X main.APIVersion=${gitTagVersion}&quot;</code>.</p>
+<p>From here we have our API versioned, built to use <code>/[apiVersion]/...</code> for our endpoint URLs, and now it can be deployed.</p>
+<h1 id="conclusion">Conclusion</h1>
+<p>We now have an RESTful API with automated versioning based on tags in our code revisioning system, and build process that ensures backwards compatibility.</p>
+<p>There are a couple of caveats though, for example once you break compatibility and bump the <code>vMajor</code> version of a git tag you can&rsquo;t edit a previous version on the main branch of the repository. So for example once we went from <code>v1.0.3</code> to <code>v2.0.0</code> we couldn&rsquo;t go back and create a <code>v1.0.4</code>. To do this we would need to create a new branch off the commit that <code>v1.0.3</code> references, make our changes, and create a tag there for <code>v1.0.4</code>. This isn&rsquo;t a huge issue since once the major version is bumped up there should be minimal work put into the legacy version, but it is something to be aware of.</p>
+<p>Another caveat is you can&rsquo;t run multiple versions of the API from the same address and port, this is because only one service can listen on a port at a time. To get around this your CI/CD pipeline should include a loadbalancer that passes traffic based on the <code>/vMajor/</code> portion of the URL. For local testing you can setup a very lightweight nginx service, run the versions on different ports, and have nginx load balance from localhost:80 based on the request URL and send it to the ports your services are listening on.</p>
+<section class="footnotes" role="doc-endnotes">
+<hr>
+<ol>
+<li id="fn:1" role="doc-endnote">
+<p><a href="https://github.com/HelixSpiral/rest-api-automatic-versioning-tutorial/blob/master/main.go#L22">https://github.com/HelixSpiral/rest-api-automatic-versioning-tutorial/blob/master/main.go#L22</a> <a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+</ol>
+</section>
+
+    </div>
+    <div class="post-footer">
+      
+    </div>
+  </article>
+
+    </main>
+  </body>
+</html>

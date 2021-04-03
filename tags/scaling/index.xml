@@ -9,10 +9,10 @@
     <lastBuildDate>Fri, 02 Apr 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://helixspiral.github.io/tags/scaling/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Ensuring backwards compatibility in deployments by leveraging git tags</title>
-      <link>https://helixspiral.github.io/posts/2021-03-06-using-git-tags-to-ensure-deployment-backwards-compability/</link>
+      <link>https://helixspiral.github.io/posts/2021-04-02-using-git-tags-to-ensure-deployment-backwards-compability/</link>
       <pubDate>Fri, 02 Apr 2021 00:00:00 +0000</pubDate>
       
-      <guid>https://helixspiral.github.io/posts/2021-03-06-using-git-tags-to-ensure-deployment-backwards-compability/</guid>
+      <guid>https://helixspiral.github.io/posts/2021-04-02-using-git-tags-to-ensure-deployment-backwards-compability/</guid>
       <description>Overview I recently came across a blog post on injecting variables into Golang at build time and that gave me the idea for this blog post. Automating versioning and ensuring backwards compatibility.
 GitHub repository and sample application You can find the code for this application here, on my GitHub
 Git tags and versioning This blog post assumes some basic understanding of the git version control system. For anyone new to it you can probably get by with thinking that commits are incremental changes to the software and tags are user-created labels that reference a specific commit.</description>
