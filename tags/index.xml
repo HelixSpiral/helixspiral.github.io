@@ -6,13 +6,103 @@
     <description>Recent content in Tags on Helix&#39;s Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Tue, 13 Oct 2020 00:00:00 +0000</lastBuildDate><atom:link href="https://helixspiral.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Fri, 02 Apr 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://helixspiral.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>api</title>
+      <link>https://helixspiral.github.io/tags/api/</link>
+      <pubDate>Fri, 02 Apr 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://helixspiral.github.io/tags/api/</guid>
+      <description></description>
+    </item>
+    
     <item>
       <title>automation</title>
       <link>https://helixspiral.github.io/tags/automation/</link>
-      <pubDate>Tue, 13 Oct 2020 00:00:00 +0000</pubDate>
+      <pubDate>Fri, 02 Apr 2021 00:00:00 +0000</pubDate>
       
       <guid>https://helixspiral.github.io/tags/automation/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>backwards-compatibility</title>
+      <link>https://helixspiral.github.io/tags/backwards-compatibility/</link>
+      <pubDate>Fri, 02 Apr 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://helixspiral.github.io/tags/backwards-compatibility/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>deployment</title>
+      <link>https://helixspiral.github.io/tags/deployment/</link>
+      <pubDate>Fri, 02 Apr 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://helixspiral.github.io/tags/deployment/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>git</title>
+      <link>https://helixspiral.github.io/tags/git/</link>
+      <pubDate>Fri, 02 Apr 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://helixspiral.github.io/tags/git/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>git-tags</title>
+      <link>https://helixspiral.github.io/tags/git-tags/</link>
+      <pubDate>Fri, 02 Apr 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://helixspiral.github.io/tags/git-tags/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>go</title>
+      <link>https://helixspiral.github.io/tags/go/</link>
+      <pubDate>Fri, 02 Apr 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://helixspiral.github.io/tags/go/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>golang</title>
+      <link>https://helixspiral.github.io/tags/golang/</link>
+      <pubDate>Fri, 02 Apr 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://helixspiral.github.io/tags/golang/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>rest-api</title>
+      <link>https://helixspiral.github.io/tags/rest-api/</link>
+      <pubDate>Fri, 02 Apr 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://helixspiral.github.io/tags/rest-api/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>scalability</title>
+      <link>https://helixspiral.github.io/tags/scalability/</link>
+      <pubDate>Fri, 02 Apr 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://helixspiral.github.io/tags/scalability/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>scaling</title>
+      <link>https://helixspiral.github.io/tags/scaling/</link>
+      <pubDate>Fri, 02 Apr 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://helixspiral.github.io/tags/scaling/</guid>
       <description></description>
     </item>
     
@@ -76,15 +166,6 @@
       <pubDate>Tue, 13 Oct 2020 00:00:00 +0000</pubDate>
       
       <guid>https://helixspiral.github.io/tags/saltstack/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>scalability</title>
-      <link>https://helixspiral.github.io/tags/scalability/</link>
-      <pubDate>Tue, 13 Oct 2020 00:00:00 +0000</pubDate>
-      
-      <guid>https://helixspiral.github.io/tags/scalability/</guid>
       <description></description>
     </item>
     

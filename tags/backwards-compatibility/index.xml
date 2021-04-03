@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>automation on Helix&#39;s Blog</title>
-    <link>https://helixspiral.github.io/tags/automation/</link>
-    <description>Recent content in automation on Helix&#39;s Blog</description>
+    <title>backwards-compatibility on Helix&#39;s Blog</title>
+    <link>https://helixspiral.github.io/tags/backwards-compatibility/</link>
+    <description>Recent content in backwards-compatibility on Helix&#39;s Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Fri, 02 Apr 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://helixspiral.github.io/tags/automation/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Fri, 02 Apr 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://helixspiral.github.io/tags/backwards-compatibility/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Ensuring backwards compatibility in deployments by leveraging git tags</title>
       <link>https://helixspiral.github.io/posts/2021-03-06-using-git-tags-to-ensure-deployment-backwards-compability/</link>
@@ -16,16 +16,6 @@
       <description>Overview I recently came across a blog post on injecting variables into Golang at build time and that gave me the idea for this blog post. Automating versioning and ensuring backwards compatibility.
 GitHub repository and sample application You can find the code for this application here, on my GitHub
 Git tags and versioning This blog post assumes some basic understanding of the git version control system. For anyone new to it you can probably get by with thinking that commits are incremental changes to the software and tags are user-created labels that reference a specific commit.</description>
-    </item>
-    
-    <item>
-      <title>Automating Kubernetes with Saltstack</title>
-      <link>https://helixspiral.github.io/posts/2020-10-13-automating-kubernetes-with-saltstack/</link>
-      <pubDate>Tue, 13 Oct 2020 00:00:00 +0000</pubDate>
-      
-      <guid>https://helixspiral.github.io/posts/2020-10-13-automating-kubernetes-with-saltstack/</guid>
-      <description>Overview My goal for this project was to setup and manage a Kubernetes cluster using Saltstack, the idea being that since I wanted to learn them both if I could automate the setup of the cluster I&amp;rsquo;d be killing two birds with one stone.
-I found a few good blog posts on this but all the ones I found lacked the level of automation I was looking for, some had hard coded values and others had manual commands needing to be run on the minions.</description>
     </item>
     
   </channel>
