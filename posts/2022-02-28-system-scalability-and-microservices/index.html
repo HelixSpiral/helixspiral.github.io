@@ -1,0 +1,152 @@
+<!doctype html>
+<html lang="en-us">
+  <head>
+    <title>System Scalability and Microservices // Helix&#39;s Blog</title>
+    <meta charset="utf-8" />
+    <meta name="generator" content="Hugo 0.76.4" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="author" content="Shawn Smith" />
+    <meta name="description" content="Talking about microservices and system scalability using examples from a small microservices setup I created that takes the Astronomy Picture of the Day from NASA and sends it to Discord." />
+    <link rel="stylesheet" href="https://helixspiral.github.io/css/main.min.88e7083eff65effb7485b6e6f38d10afbec25093a6fac42d734ce9024d3defbd.css" />
+
+    
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+	ga('create', 'UA-180576724-1', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+
+    <meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="System Scalability and Microservices"/>
+<meta name="twitter:description" content="Talking about microservices and system scalability using examples from a small microservices setup I created that takes the Astronomy Picture of the Day from NASA and sends it to Discord."/>
+
+    <meta property="og:title" content="System Scalability and Microservices" />
+<meta property="og:description" content="Talking about microservices and system scalability using examples from a small microservices setup I created that takes the Astronomy Picture of the Day from NASA and sends it to Discord." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://helixspiral.github.io/posts/2022-02-28-system-scalability-and-microservices/" />
+<meta property="article:published_time" content="2022-02-28T00:00:00+00:00" />
+<meta property="article:modified_time" content="2022-02-28T00:00:00+00:00" />
+
+
+  </head>
+  <body>
+    <header class="app-header">
+      <a href="https://helixspiral.github.io/"><img class="app-header-avatar" src="/blog_avatar.jpg" alt="Shawn Smith" /></a>
+      <h1>Helix&#39;s Blog</h1>
+      <nav class="app-header-menu">
+          <a class="app-header-menu-item" href="/">Home</a>
+             - 
+          
+          <a class="app-header-menu-item" href="/tags/">Tags</a>
+      </nav>
+      <p>Personal blog that may contain a wide range of content</p>
+      <div class="app-header-social">
+        
+          <a target="_blank" href="https://github.com/HelixSpiral" rel="noreferrer noopener"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-github">
+  <title>github</title>
+  <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path>
+</svg></a>
+        
+          <a target="_blank" href="https://twitter.com/SpiralingHelix" rel="noreferrer noopener"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-twitter">
+  <title>twitter</title>
+  <path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"></path>
+</svg></a>
+        
+          <a target="_blank" href="https://www.linkedin.com/in/HelixSpiral/" rel="noreferrer noopener"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-linkedin">
+  <title>linkedin</title>
+  <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect x="2" y="9" width="4" height="12"></rect><circle cx="4" cy="4" r="2"></circle>
+</svg></a>
+        
+      </div>
+    </header>
+    <main class="app-container">
+      
+  <article class="post">
+    <header class="post-header">
+      <h1 class ="post-title">System Scalability and Microservices</h1>
+      <div class="post-meta">
+        <div>
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-calendar">
+  <title>calendar</title>
+  <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line>
+</svg>
+          Feb 28, 2022
+        </div>
+        <div>
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-clock">
+  <title>clock</title>
+  <circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline>
+</svg>
+          4 min read
+        </div>
+        <div>
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tag">
+  <title>tag</title>
+  <path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7" y2="7"></line>
+</svg>
+              <a class="tag" href="https://helixspiral.github.io/tags/api/">api</a>
+              <a class="tag" href="https://helixspiral.github.io/tags/go/">go</a>
+              <a class="tag" href="https://helixspiral.github.io/tags/golang/">golang</a>
+              <a class="tag" href="https://helixspiral.github.io/tags/microservices/">microservices</a>
+              <a class="tag" href="https://helixspiral.github.io/tags/nasa/">nasa</a>
+              <a class="tag" href="https://helixspiral.github.io/tags/nasa-api/">nasa-api</a>
+              <a class="tag" href="https://helixspiral.github.io/tags/space/">space</a>
+              <a class="tag" href="https://helixspiral.github.io/tags/space-api/">space-api</a>
+              <a class="tag" href="https://helixspiral.github.io/tags/mqtt/">mqtt</a>
+              <a class="tag" href="https://helixspiral.github.io/tags/discord/">discord</a>
+              <a class="tag" href="https://helixspiral.github.io/tags/discord-bot/">discord-bot</a>
+              <a class="tag" href="https://helixspiral.github.io/tags/api-wrapper/">api-wrapper</a>
+              <a class="tag" href="https://helixspiral.github.io/tags/automation/">automation</a>
+              <a class="tag" href="https://helixspiral.github.io/tags/scaling/">scaling</a>
+              <a class="tag" href="https://helixspiral.github.io/tags/scalability/">scalability</a>
+              <a class="tag" href="https://helixspiral.github.io/tags/git/">git</a>
+              <a class="tag" href="https://helixspiral.github.io/tags/apod/">apod</a>
+              <a class="tag" href="https://helixspiral.github.io/tags/astronomy-picture-of-the-day/">astronomy-picture-of-the-day</a>
+        </div>
+      </div>
+    </header>
+    <div class="post-content">
+      <h1 id="overview">Overview</h1>
+<p>This blog will talk about system scalability with relation to microservices and how a monolithic application would be less desired in this example.</p>
+<h1 id="github-repositories">GitHub repositories</h1>
+<p>All of the code relating to this blog post can be found at the following links and is released under the GPL-3.0 license, with the exception of the official NASA api which is released under the Apache-2.0 license.</p>
+<ul>
+<li><a href="https://github.com/nasa/apod-api">Official NASA APOD API</a> - The official NASA API for getting the Astronomy Picture of the Day.</li>
+<li><a href="https://github.com/HelixSpiral/apod">APOD</a> - The API wrapper we use to query the NASA api.</li>
+<li><a href="https://github.com/HelixSpiral/apod-to-mqtt">Apod-to-MQTT</a> - This service uses the api wrapper above to actually do the query.</li>
+<li><a href="https://github.com/HelixSpiral/apod-mqtt-to-discord">Apod-MQTT-to-Discord</a> - This service reads off an MQTT subscription and publishes the messages to Discord.</li>
+</ul>
+<h1 id="system-architecture">System Architecture</h1>
+<p>Given the simplicity of this system I haven&rsquo;t created an actual diagram and you should be able to get the general gist of the system from the above section, but in short <code>Apod-to-MQTT</code> runs on a cronjob to query the official NASA API using the <code>APOD</code> wrapper we wrote. Once it gets the daily picture it sends it to an MQTT broker, we then have <code>Apod-MQTT-to-Discord</code> that is subscribed to the MQTT topic and sends the daily picture to Discord.</p>
+<h1 id="system-scalability">System Scalability</h1>
+<p>When architecting this system the goal was for highly scalable consumers, by that I mean I wanted to be able to create any number of backends to post the Astronomy Picture of the Day to many different places.</p>
+<p>This system setup should support any number of backends and scale nearly indefinitely. The service that queries the NASA API for the picture and sends it to MQTT will work perfectly regardless of the number of backends we have, any backend we have will function independently of eachother so no issues there either.</p>
+<p>The only system we have to worry about is the MQTT broker but given how lightweight some of the MQTT servers out there are we should have no issue even if we scale to thousands of backends, however unlikely that is.</p>
+<h1 id="differences-from-a-monolithic-application">Differences from a Monolithic Application</h1>
+<p>This service could have written as a single application that provided all the functionality without needing MQTT. Eg: An application either constantly running or on a cronjob that takes the Astronomy Picture of the Day and sends it directly to Discord.</p>
+<p>The downside of a monolithic application would be the ease of scalability. You could easily add functionality to send the picture of the day to a few more places, but every time you make edits you&rsquo;ll need to test to make sure nothing broke and then update the service in production. The more you add, the more you have to test and ensure is not broke prior to updating in production.</p>
+<p>This is in contrast to the Microservices setup where once you have a working backend to handle the image you never need to test that service when adding new ones, the only thing that needs to be tested is the service your currently working on implementing and once it&rsquo;s finished, you&rsquo;re all set.</p>
+<p>We also have to consider system resources. While handling a couple of backends a monolithic application would be of similar resource requirements to our microservices setup but as the number of backends grow our monolithic application would need to scale vertically to meet the requirements. Our microservice setup on the other hand can either scale vertically or horizontally depending on how we&rsquo;re adding resources.</p>
+<h1 id="conclusion">Conclusion</h1>
+<p>While definitely not necessary for such a small service, this was a fun way to get practical hands on experience with MQTT and gave reason to write this simple blog post on Microservices.</p>
+<p>At the time of writing this the service isn&rsquo;t 100% complete, we&rsquo;re still lacking authentication for the MQTT brokers pub/sub functions, but for what I wanted to learn and write about this was enough. I will at some point finish out the setup proper but it wont be right off.</p>
+<p>Pull requests are welcome from anyone that wants to write in authentication before I get around to it!</p>
+<h1 id="other-fun-idea-with-mqtt">Other fun idea with MQTT</h1>
+<p>When coming up with the idea for this service I had also thought about some other sciencey services I could write to use MQTT, one of which was an earthquake monitoring system. General architecture would be the same but we&rsquo;d use multiple topics for the severity, eg: <code>earthquake/sev_1</code>, <code>earthquake/sev_2</code> &hellip; <code>earthquake/sev_9</code>. The thought being that backends could listen to the severity of earthquakes they wanted and process them accordingly, for example a twitter bot might want to post anything 2 and higher but an email alert system might only want 6 and higher.</p>
+
+    </div>
+    <div class="post-footer">
+      
+    </div>
+  </article>
+
+    </main>
+  </body>
+</html>

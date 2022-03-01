@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>api-wrapper on Helix&#39;s Blog</title>
+    <link>https://helixspiral.github.io/tags/api-wrapper/</link>
+    <description>Recent content in api-wrapper on Helix&#39;s Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Mon, 28 Feb 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://helixspiral.github.io/tags/api-wrapper/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>System Scalability and Microservices</title>
+      <link>https://helixspiral.github.io/posts/2022-02-28-system-scalability-and-microservices/</link>
+      <pubDate>Mon, 28 Feb 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://helixspiral.github.io/posts/2022-02-28-system-scalability-and-microservices/</guid>
+      <description>Overview This blog will talk about system scalability with relation to microservices and how a monolithic application would be less desired in this example.
+GitHub repositories All of the code relating to this blog post can be found at the following links and is released under the GPL-3.0 license, with the exception of the official NASA api which is released under the Apache-2.0 license.
+ Official NASA APOD API - The official NASA API for getting the Astronomy Picture of the Day.</description>
+    </item>
+    
+  </channel>
+</rss>
