@@ -6,7 +6,18 @@
     <description>Recent content in api-wrapper on Helix&#39;s Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Mon, 28 Feb 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://helixspiral.github.io/tags/api-wrapper/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Tue, 26 Jul 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://helixspiral.github.io/tags/api-wrapper/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Astronomy Picture of the Day Notification Service</title>
+      <link>https://helixspiral.github.io/posts/2022-07-26-astronomy-picture-of-the-day-notification-service/</link>
+      <pubDate>Tue, 26 Jul 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://helixspiral.github.io/posts/2022-07-26-astronomy-picture-of-the-day-notification-service/</guid>
+      <description>Overview In this blog we&amp;rsquo;ll cover how the Astronomy Picture of the Day microservices are built and deployed with Docker and Kubernetes, and how to deploy the lightweight MQTT broker Mosquitto.
+This is a follow up to my previous blog post System Scalability and Microservices with some additional information.
+Requirements  Docker installed locally Working Kubernetes cluster Helm installed  GitHub repositories All of the code relating to this blog post can be found at the following links and is released under the GPL-3.</description>
+    </item>
+    
     <item>
       <title>System Scalability and Microservices</title>
       <link>https://helixspiral.github.io/posts/2022-02-28-system-scalability-and-microservices/</link>
