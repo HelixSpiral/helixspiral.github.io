@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>rust on Helix&#39;s Blog</title>
+    <link>https://helixspiral.github.io/tags/rust/</link>
+    <description>Recent content in rust on Helix&#39;s Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 16 Jun 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://helixspiral.github.io/tags/rust/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Multi-arch Docker builds with Rust</title>
+      <link>https://helixspiral.github.io/posts/2023-06-16-rust-multiarch-docker/</link>
+      <pubDate>Fri, 16 Jun 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://helixspiral.github.io/posts/2023-06-16-rust-multiarch-docker/</guid>
+      <description>Introduction I&amp;rsquo;ve recently been with some Rust projects and one of the biggest struggles I had was getting a small platform agnostic Docker image that I could build to any platform using docker buildx.
+The code I wrote a very small program that spits out a random number along with the current architecture to use as an sample for our Docker work.
+use rand::Rng; use current_platform::CURRENT_PLATFORM; fn main() { let mut rng = rand::thread_rng(); let r_num: u8 = rng.</description>
+    </item>
+    
+  </channel>
+</rss>

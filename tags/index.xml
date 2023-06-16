@@ -6,7 +6,61 @@
     <description>Recent content in Tags on Helix&#39;s Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Tue, 26 Jul 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://helixspiral.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Fri, 16 Jun 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://helixspiral.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>automation</title>
+      <link>https://helixspiral.github.io/tags/automation/</link>
+      <pubDate>Fri, 16 Jun 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://helixspiral.github.io/tags/automation/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>build</title>
+      <link>https://helixspiral.github.io/tags/build/</link>
+      <pubDate>Fri, 16 Jun 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://helixspiral.github.io/tags/build/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>deployment</title>
+      <link>https://helixspiral.github.io/tags/deployment/</link>
+      <pubDate>Fri, 16 Jun 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://helixspiral.github.io/tags/deployment/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>docker</title>
+      <link>https://helixspiral.github.io/tags/docker/</link>
+      <pubDate>Fri, 16 Jun 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://helixspiral.github.io/tags/docker/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>microservices</title>
+      <link>https://helixspiral.github.io/tags/microservices/</link>
+      <pubDate>Fri, 16 Jun 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://helixspiral.github.io/tags/microservices/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>rust</title>
+      <link>https://helixspiral.github.io/tags/rust/</link>
+      <pubDate>Fri, 16 Jun 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://helixspiral.github.io/tags/rust/</guid>
+      <description></description>
+    </item>
+    
     <item>
       <title>api</title>
       <link>https://helixspiral.github.io/tags/api/</link>
@@ -40,15 +94,6 @@
       <pubDate>Tue, 26 Jul 2022 00:00:00 +0000</pubDate>
       
       <guid>https://helixspiral.github.io/tags/astronomy-picture-of-the-day/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>automation</title>
-      <link>https://helixspiral.github.io/tags/automation/</link>
-      <pubDate>Tue, 26 Jul 2022 00:00:00 +0000</pubDate>
-      
-      <guid>https://helixspiral.github.io/tags/automation/</guid>
       <description></description>
     </item>
     
@@ -94,15 +139,6 @@
       <pubDate>Tue, 26 Jul 2022 00:00:00 +0000</pubDate>
       
       <guid>https://helixspiral.github.io/tags/golang/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>microservices</title>
-      <link>https://helixspiral.github.io/tags/microservices/</link>
-      <pubDate>Tue, 26 Jul 2022 00:00:00 +0000</pubDate>
-      
-      <guid>https://helixspiral.github.io/tags/microservices/</guid>
       <description></description>
     </item>
     
@@ -179,15 +215,6 @@
     </item>
     
     <item>
-      <title>deployment</title>
-      <link>https://helixspiral.github.io/tags/deployment/</link>
-      <pubDate>Fri, 02 Apr 2021 00:00:00 +0000</pubDate>
-      
-      <guid>https://helixspiral.github.io/tags/deployment/</guid>
-      <description></description>
-    </item>
-    
-    <item>
       <title>git-tags</title>
       <link>https://helixspiral.github.io/tags/git-tags/</link>
       <pubDate>Fri, 02 Apr 2021 00:00:00 +0000</pubDate>
@@ -211,15 +238,6 @@
       <pubDate>Tue, 13 Oct 2020 00:00:00 +0000</pubDate>
       
       <guid>https://helixspiral.github.io/tags/containers/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>docker</title>
-      <link>https://helixspiral.github.io/tags/docker/</link>
-      <pubDate>Tue, 13 Oct 2020 00:00:00 +0000</pubDate>
-      
-      <guid>https://helixspiral.github.io/tags/docker/</guid>
       <description></description>
     </item>
     

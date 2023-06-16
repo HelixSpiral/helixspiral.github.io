@@ -1,0 +1,219 @@
+<!doctype html>
+<html lang="en-us">
+  <head>
+    <title>Multi-arch Docker builds with Rust // Helix&#39;s Blog</title>
+    <meta charset="utf-8" />
+    <meta name="generator" content="Hugo 0.76.4" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="author" content="Shawn Smith" />
+    <meta name="description" content="A short blog post talking about doing multi-arch Docker builds" />
+    <link rel="stylesheet" href="https://helixspiral.github.io/css/main.min.88e7083eff65effb7485b6e6f38d10afbec25093a6fac42d734ce9024d3defbd.css" />
+
+    
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+	ga('create', 'UA-180576724-1', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+
+    <meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://helixspiral.github.io/rustacean-orig-noshadow.png"/>
+
+<meta name="twitter:title" content="Multi-arch Docker builds with Rust"/>
+<meta name="twitter:description" content="A short blog post talking about doing multi-arch Docker builds"/>
+
+    <meta property="og:title" content="Multi-arch Docker builds with Rust" />
+<meta property="og:description" content="A short blog post talking about doing multi-arch Docker builds" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://helixspiral.github.io/posts/2023-06-16-rust-multiarch-docker/" />
+<meta property="og:image" content="https://helixspiral.github.io/rustacean-orig-noshadow.png" />
+<meta property="article:published_time" content="2023-06-16T00:00:00+00:00" />
+<meta property="article:modified_time" content="2023-06-16T00:00:00+00:00" />
+
+
+  </head>
+  <body>
+    <header class="app-header">
+      <a href="https://helixspiral.github.io/"><img class="app-header-avatar" src="/blog_avatar.jpg" alt="Shawn Smith" /></a>
+      <h1>Helix&#39;s Blog</h1>
+      <nav class="app-header-menu">
+          <a class="app-header-menu-item" href="/">Home</a>
+             - 
+          
+          <a class="app-header-menu-item" href="/tags/">Tags</a>
+      </nav>
+      <p>Personal blog that may contain a wide range of content</p>
+      <div class="app-header-social">
+        
+          <a target="_blank" href="https://github.com/HelixSpiral" rel="noreferrer noopener"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-github">
+  <title>github</title>
+  <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path>
+</svg></a>
+        
+          <a target="_blank" href="https://twitter.com/SpiralingHelix" rel="noreferrer noopener"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-twitter">
+  <title>twitter</title>
+  <path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"></path>
+</svg></a>
+        
+          <a target="_blank" href="https://www.linkedin.com/in/HelixSpiral/" rel="noreferrer noopener"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-linkedin">
+  <title>linkedin</title>
+  <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect x="2" y="9" width="4" height="12"></rect><circle cx="4" cy="4" r="2"></circle>
+</svg></a>
+        
+      </div>
+    </header>
+    <main class="app-container">
+      
+  <article class="post">
+    <header class="post-header">
+      <h1 class ="post-title">Multi-arch Docker builds with Rust</h1>
+      <div class="post-meta">
+        <div>
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-calendar">
+  <title>calendar</title>
+  <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line>
+</svg>
+          Jun 16, 2023
+        </div>
+        <div>
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-clock">
+  <title>clock</title>
+  <circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline>
+</svg>
+          4 min read
+        </div>
+        <div>
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tag">
+  <title>tag</title>
+  <path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7" y2="7"></line>
+</svg>
+              <a class="tag" href="https://helixspiral.github.io/tags/automation/">automation</a>
+              <a class="tag" href="https://helixspiral.github.io/tags/build/">build</a>
+              <a class="tag" href="https://helixspiral.github.io/tags/deployment/">deployment</a>
+              <a class="tag" href="https://helixspiral.github.io/tags/docker/">docker</a>
+              <a class="tag" href="https://helixspiral.github.io/tags/microservices/">microservices</a>
+              <a class="tag" href="https://helixspiral.github.io/tags/rust/">rust</a>
+        </div>
+      </div>
+    </header>
+    <div class="post-content">
+      <h1 id="introduction">Introduction</h1>
+<p>I&rsquo;ve recently been with some Rust projects and one of the biggest struggles I had was getting a small platform agnostic Docker image that I could build to any platform using <code>docker buildx</code>.</p>
+<h1 id="the-code">The code</h1>
+<p>I wrote a very small program that spits out a random number along with the current architecture to use as an sample for our Docker work.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-rust" data-lang="rust"><span style="color:#66d9ef">use</span> rand::Rng;
+<span style="color:#66d9ef">use</span> current_platform::CURRENT_PLATFORM;
+
+<span style="color:#66d9ef">fn</span> <span style="color:#a6e22e">main</span>() {
+    <span style="color:#66d9ef">let</span> <span style="color:#66d9ef">mut</span> rng <span style="color:#f92672">=</span> rand::thread_rng();
+    <span style="color:#66d9ef">let</span> r_num: <span style="color:#66d9ef">u8</span> <span style="color:#f92672">=</span> rng.gen();
+
+    println<span style="color:#f92672">!</span>(<span style="color:#e6db74">&#34;My random number is: {} | {}&#34;</span>, r_num, CURRENT_PLATFORM);
+}
+</code></pre></div><p>To compile this code we use <code>cargo build --release</code>, this puts our binary in the <code>target/release/</code> folder.</p>
+<h1 id="initial-dockerfile">Initial Dockerfile</h1>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-dockerfile" data-lang="dockerfile"><span style="color:#66d9ef">FROM</span><span style="color:#e6db74"> rust:1.67 as builder</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#66d9ef">WORKDIR</span><span style="color:#e6db74"> /build</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#66d9ef">COPY</span> . .<span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#66d9ef">RUN</span> cargo build --release<span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#66d9ef">RUN</span> mv /build/target/release/rust-random-number-generator /<span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#66d9ef">FROM</span><span style="color:#e6db74"> scratch</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#66d9ef">WORKDIR</span><span style="color:#e6db74"> /app</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#66d9ef">COPY</span> --from<span style="color:#f92672">=</span>builder /rust-random-number-generator /app<span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#66d9ef">CMD</span> [<span style="color:#e6db74">&#34;./rust-random-number-generator&#34;</span>]<span style="color:#960050;background-color:#1e0010">
+</span></code></pre></div><p>Running this with a <code>docker buildx build --push --platform linux/amd64,linux/arm64 -t &lt;yourimage&gt;:v0.1 .</code> works perfectly fine, it builds and pushes the images to the reposity of your choice. Perfect!</p>
+<h1 id="the-issue">The Issue</h1>
+<p>While our above program works locally, and will work on any architecture supported by Rust if we build it using <code>cargo build --release</code> on those architecutre machines, trying to run this on any arch results in errors.</p>
+<p>Why? Because we need to build static binaries where Rust defaults to dynamic ones. In a <code>scratch</code> image we don&rsquo;t have a lot of the underlying services a dynamic application can use, so we have to package it ourselves.</p>
+<h1 id="improved-dockerfile">Improved Dockerfile</h1>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-dockerfile" data-lang="dockerfile"><span style="color:#66d9ef">FROM</span><span style="color:#e6db74"> rust:1.67 as builder</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#66d9ef">WORKDIR</span><span style="color:#e6db74"> /build</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#66d9ef">COPY</span> . .<span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#66d9ef">RUN</span> RUSTFLAGS<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;-C target-feature=+crt-static&#34;</span> cargo build --release<span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#66d9ef">RUN</span> mv /build/target/release/rust-random-number-generator /<span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#66d9ef">FROM</span><span style="color:#e6db74"> scratch</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#66d9ef">WORKDIR</span><span style="color:#e6db74"> /app</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#66d9ef">COPY</span> --from<span style="color:#f92672">=</span>builder /rust-random-number-generator /app<span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#66d9ef">CMD</span> [<span style="color:#e6db74">&#34;./rust-random-number-generator&#34;</span>]<span style="color:#960050;background-color:#1e0010">
+</span></code></pre></div><p>With the addition of <code>RUSTFLAGS=-C target-feature=+crt-static</code> we&rsquo;ve specified we want to create static binaries for the architecture being built.</p>
+<h1 id="a-more-complex-example">A more complex example</h1>
+<p>The above program and dockerfile now work without issue, but this was a very simple setup. What if we use a more complex one?</p>
+<p>For a more complex example I decided to use one of the <a href="https://github.com/helium/oracles">Helium Oracles</a></p>
+<p>Our updated Dockerfile looks like this:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-dockerfile" data-lang="dockerfile"><span style="color:#66d9ef">FROM</span><span style="color:#e6db74"> rust:1.67 as builder</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#66d9ef">WORKDIR</span><span style="color:#e6db74"> /build</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#66d9ef">COPY</span> . .<span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#66d9ef">RUN</span> RUSTFLAGS<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;-C target-feature=+crt-static&#34;</span> cargo build -p ingest --release<span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#66d9ef">RUN</span> mv /build/target/release/ingest /<span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#66d9ef">FROM</span><span style="color:#e6db74"> scratch</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#66d9ef">WORKDIR</span><span style="color:#e6db74"> /app</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#66d9ef">COPY</span> --from<span style="color:#f92672">=</span>builder /ingest /app<span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#66d9ef">CMD</span> [<span style="color:#e6db74">&#34;./ingest&#34;</span>]<span style="color:#960050;background-color:#1e0010">
+</span></code></pre></div><h1 id="the-second-error">The second error</h1>
+<p>Running our more complex program in the same way as our first example program results in the following error:</p>
+<pre><code>#0 26.94 error: cannot produce proc-macro for `async-stream-impl v0.3.3` as the target `aarch64-unknown-linux-gnu` does not support these crate types
+</code></pre><p>Which is odd because we can compile these programs on both <code>amd64</code>, and <code>arm64</code> outside of Docker without issue. I tested both.</p>
+<p>I spent a good bit of time debugging here and it seems the root cause is when you specify the build flags <code>RUSTFLAGS=&quot;-C target-feature=+crt-static&quot;</code> Rust will default to building a static binary for the host architecture, not the Docker container architecture. So attempting to natively compile for the <code>&lt;host arch&gt;</code> while on the <code>&lt;container arch&gt;</code> and we end in an error.</p>
+<p>We can confirm this is the case by adding a specific architecture with the <code>--target</code> parameter and testing. Now that we know how to make it work, how do we make it architecture agnostic again while using the <code>--target</code> parameter?</p>
+<h1 id="the-solution">The solution</h1>
+<p>The magic of <code>rustc -vV</code>. With a little bit of shell scripting we can get the current architecture of our container doing the complation: <code>$(rustc -vV | sed -n 's|host: ||p')</code></p>
+<p>Our updated Dockerfile:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-dockerfile" data-lang="dockerfile"><span style="color:#66d9ef">FROM</span><span style="color:#e6db74"> rust:1.67 as builder</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#66d9ef">WORKDIR</span><span style="color:#e6db74"> /build</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#66d9ef">COPY</span> . .<span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#66d9ef">RUN</span> echo <span style="color:#e6db74">&#34;</span><span style="color:#66d9ef">$(</span>rustc -vV | sed -n <span style="color:#e6db74">&#39;s|host: ||p&#39;</span><span style="color:#66d9ef">)</span><span style="color:#e6db74">&#34;</span> &gt; rust_target<span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#66d9ef">RUN</span> RUSTFLAGS<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;-C target-feature=+crt-static&#34;</span> cargo build --target <span style="color:#66d9ef">$(</span>cat rust_target<span style="color:#66d9ef">)</span> -p ingest --release<span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#66d9ef">RUN</span> mv /build/target/<span style="color:#66d9ef">$(</span>cat rust_target<span style="color:#66d9ef">)</span>/release/ingest /<span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#66d9ef">FROM</span><span style="color:#e6db74"> scratch</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#66d9ef">WORKDIR</span><span style="color:#e6db74"> /app</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#66d9ef">COPY</span> --from<span style="color:#f92672">=</span>builder /ingest /app<span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#66d9ef">CMD</span> [<span style="color:#e6db74">&#34;./ingest&#34;</span>]<span style="color:#960050;background-color:#1e0010">
+</span></code></pre></div><p>Now we&rsquo;re able to use the <code>RUSTFLAGS</code> to compile a static binary, and we&rsquo;re specifying the proper architecture dynamically based on the container doing the compiling.</p>
+<p>Building this with <code>docker buildx build --push --platform linux/amd64,linux/arm64 -t &lt;image&gt;:v0.2</code> works without issues. You can pull the image locally and run on either of those architectures.</p>
+<p>This <em>may not work everywhere</em>. Just as the first program we had working without needing <code>--target</code>, there may be more complex programs out there that need additional tweaking to get working right. For now though, I&rsquo;m pretty happy with getting this finished and off my to-do/learning list.</p>
+
+    </div>
+    <div class="post-footer">
+      
+    </div>
+  </article>
+
+    </main>
+  </body>
+</html>
