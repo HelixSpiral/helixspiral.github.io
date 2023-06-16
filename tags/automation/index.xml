@@ -13,7 +13,7 @@
       <pubDate>Fri, 16 Jun 2023 00:00:00 +0000</pubDate>
       
       <guid>https://helixspiral.github.io/posts/2023-06-16-rust-multiarch-docker/</guid>
-      <description>Introduction I&amp;rsquo;ve recently been playing with some Rust projects and one of the biggest struggles I had was getting a small platform agnostic Docker image that I could use to build any platform using docker buildx.
+      <description>Introduction I&amp;rsquo;ve recently been playing with some Rust projects, and one of the biggest struggles I had was getting a small platform agnostic Docker image that I could use to build any platform using docker buildx.
 The code I wrote a very small program that spits out a random number along with the current architecture to use as an sample for our Docker work.
 use rand::Rng; use current_platform::CURRENT_PLATFORM; fn main() { let mut rng = rand::thread_rng(); let r_num: u8 = rng.</description>
     </item>
