@@ -105,7 +105,7 @@ if (!doNotTrack) {
     </header>
     <div class="post-content">
       <h1 id="introduction">Introduction</h1>
-<p>I&rsquo;ve recently been with some Rust projects and one of the biggest struggles I had was getting a small platform agnostic Docker image that I could build to any platform using <code>docker buildx</code>.</p>
+<p>I&rsquo;ve recently been playing with some Rust projects and one of the biggest struggles I had was getting a small platform agnostic Docker image that I could use to build any platform using <code>docker buildx</code>.</p>
 <h1 id="the-code">The code</h1>
 <p>I wrote a very small program that spits out a random number along with the current architecture to use as an sample for our Docker work.</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-rust" data-lang="rust"><span style="color:#66d9ef">use</span> rand::Rng;
@@ -137,7 +137,7 @@ if (!doNotTrack) {
 </span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#66d9ef">CMD</span> [<span style="color:#e6db74">&#34;./rust-random-number-generator&#34;</span>]<span style="color:#960050;background-color:#1e0010">
 </span></code></pre></div><p>Running this with a <code>docker buildx build --push --platform linux/amd64,linux/arm64 -t &lt;yourimage&gt;:v0.1 .</code> works perfectly fine, it builds and pushes the images to the reposity of your choice. Perfect!</p>
 <h1 id="the-issue">The Issue</h1>
-<p>While our above program works locally, and will work on any architecture supported by Rust if we build it using <code>cargo build --release</code> on those architecutre machines, trying to run this on any arch results in errors.</p>
+<p>While our above program works locally, and will work on any architecture supported by Rust if we build it using <code>cargo build --release</code> on those architecutre machines, trying to run this on any arch other than the host arch results in errors.</p>
 <p>Why? Because we need to build static binaries where Rust defaults to dynamic ones. In a <code>scratch</code> image we don&rsquo;t have a lot of the underlying services a dynamic application can use, so we have to package it ourselves.</p>
 <h1 id="improved-dockerfile">Improved Dockerfile</h1>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-dockerfile" data-lang="dockerfile"><span style="color:#66d9ef">FROM</span><span style="color:#e6db74"> rust:1.67 as builder</span><span style="color:#960050;background-color:#1e0010">
