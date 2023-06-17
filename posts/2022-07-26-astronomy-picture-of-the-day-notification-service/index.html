@@ -3,23 +3,21 @@
   <head>
     <title>Astronomy Picture of the Day Notification Service // Helix&#39;s Blog</title>
     <meta charset="utf-8" />
-    <meta name="generator" content="Hugo 0.76.4" />
+    <meta name="generator" content="Hugo 0.113.0">
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="author" content="Shawn Smith" />
     <meta name="description" content="An updated blogpost following my previous post on System Scalability and Microservices to cover the build and deployment process for this system." />
     <link rel="stylesheet" href="https://helixspiral.github.io/css/main.min.88e7083eff65effb7485b6e6f38d10afbec25093a6fac42d734ce9024d3defbd.css" />
 
     
-<script type="application/javascript">
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-TYXY2W25C1"></script>
+<script>
 var doNotTrack = false;
 if (!doNotTrack) {
-	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-	(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-	m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-	})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
-	ga('create', 'UA-180576724-1', 'auto');
-	
-	ga('send', 'pageview');
+	window.dataLayer = window.dataLayer || [];
+	function gtag(){dataLayer.push(arguments);}
+	gtag('js', new Date());
+	gtag('config', 'G-TYXY2W25C1', { 'anonymize_ip': false });
 }
 </script>
 
@@ -32,8 +30,7 @@ if (!doNotTrack) {
     <meta property="og:title" content="Astronomy Picture of the Day Notification Service" />
 <meta property="og:description" content="An updated blogpost following my previous post on System Scalability and Microservices to cover the build and deployment process for this system." />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://helixspiral.github.io/posts/2022-07-26-astronomy-picture-of-the-day-notification-service/" />
-<meta property="og:image" content="https://helixspiral.github.io/SpaceGalaxy.png" />
+<meta property="og:url" content="https://helixspiral.github.io/posts/2022-07-26-astronomy-picture-of-the-day-notification-service/" /><meta property="og:image" content="https://helixspiral.github.io/SpaceGalaxy.png" /><meta property="article:section" content="posts" />
 <meta property="article:published_time" content="2022-07-26T00:00:00+00:00" />
 <meta property="article:modified_time" content="2022-07-26T00:00:00+00:00" />
 
@@ -135,51 +132,51 @@ if (!doNotTrack) {
 </ul>
 <h1 id="kubernetes-setup">Kubernetes Setup</h1>
 <p>First we&rsquo;ll setup two namespaces to run our services in. We&rsquo;re putting Mosquitto in it&rsquo;s own namespace so we can reuse it for other projects in the future.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">kubectl create ns mqtt
-kubectl create ns apod
-</code></pre></div><p>Next we&rsquo;ll need to create two Kubernetes secrets to hold the Docker credentials of our repository. This allows Kubernetes to connect to and pull images from a private repo, in this blog we&rsquo;re using the GitHub Container Repository.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">kubectl create secret docker-registry ghcr-credentials --docker-server<span style="color:#f92672">=</span>ghcr.io --docker-username<span style="color:#f92672">=</span>&lt;myuser&gt; --docker-email<span style="color:#f92672">=</span>&lt;myemail&gt; --docker-password<span style="color:#f92672">=</span>&lt;mypersonaltoken&gt; -n mqtt
-kubectl create secret docker-registry ghcr-credentials --docker-server<span style="color:#f92672">=</span>ghcr.io --docker-username<span style="color:#f92672">=</span>&lt;myuser&gt; --docker-email<span style="color:#f92672">=</span>&lt;myemail&gt; --docker-password<span style="color:#f92672">=</span>&lt;mypersonaltoken&gt; -n apod
-</code></pre></div><p>We&rsquo;ll then need to create another Kubernetes secret to hold our <code>APOD_API_KEY</code> and <code>DISCORD_BOT_TOKEN</code>.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"> kubectl create secret generic --from-literal<span style="color:#f92672">=</span>APOD_API_KEY<span style="color:#f92672">=</span>&lt;apod-key&gt; --from-literal<span style="color:#f92672">=</span>APOD_DISCORD_BOT_TOKEN<span style="color:#f92672">=</span>&lt;discord-bot-token&gt; -n apod
-</code></pre></div><p>Lastly we&rsquo;ll apply a configMap with some general configurations for our microservices. In the <code>Apod-to-MQTT</code> and <code>Apod-MQTT-to-Discord</code> repos there are example configMaps. Combine those two into a single file that looks like the one below with your configuration and apply it with <code>kubectl apply -f &lt;configMapfile.yaml&gt; -n apod</code></p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml"><span style="color:#f92672">apiVersion</span>: <span style="color:#ae81ff">v1</span>
-<span style="color:#f92672">kind</span>: <span style="color:#ae81ff">ConfigMap</span>
-<span style="color:#f92672">metadata</span>:
-  <span style="color:#f92672">name</span>: <span style="color:#ae81ff">apod</span>
-<span style="color:#f92672">data</span>:
-  <span style="color:#f92672">MQTT_BROKER</span>: <span style="color:#ae81ff">&lt;tcp://MQTT Broker&gt;</span>
-  <span style="color:#f92672">MQTT_TOPIC</span>: <span style="color:#ae81ff">&lt;MQTT Topic&gt;</span>
-  <span style="color:#f92672">DISCORD_CHANNEL_ID</span>: <span style="color:#e6db74">&#34;&lt;Discord channel ID&gt;&#34;</span>
-</code></pre></div><p>With all of that done our cluster is ready to host our services</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>kubectl create ns mqtt
+</span></span><span style="display:flex;"><span>kubectl create ns apod
+</span></span></code></pre></div><p>Next we&rsquo;ll need to create two Kubernetes secrets to hold the Docker credentials of our repository. This allows Kubernetes to connect to and pull images from a private repo, in this blog we&rsquo;re using the GitHub Container Repository.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>kubectl create secret docker-registry ghcr-credentials --docker-server<span style="color:#f92672">=</span>ghcr.io --docker-username<span style="color:#f92672">=</span>&lt;myuser&gt; --docker-email<span style="color:#f92672">=</span>&lt;myemail&gt; --docker-password<span style="color:#f92672">=</span>&lt;mypersonaltoken&gt; -n mqtt
+</span></span><span style="display:flex;"><span>kubectl create secret docker-registry ghcr-credentials --docker-server<span style="color:#f92672">=</span>ghcr.io --docker-username<span style="color:#f92672">=</span>&lt;myuser&gt; --docker-email<span style="color:#f92672">=</span>&lt;myemail&gt; --docker-password<span style="color:#f92672">=</span>&lt;mypersonaltoken&gt; -n apod
+</span></span></code></pre></div><p>We&rsquo;ll then need to create another Kubernetes secret to hold our <code>APOD_API_KEY</code> and <code>DISCORD_BOT_TOKEN</code>.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span> kubectl create secret generic --from-literal<span style="color:#f92672">=</span>APOD_API_KEY<span style="color:#f92672">=</span>&lt;apod-key&gt; --from-literal<span style="color:#f92672">=</span>APOD_DISCORD_BOT_TOKEN<span style="color:#f92672">=</span>&lt;discord-bot-token&gt; -n apod
+</span></span></code></pre></div><p>Lastly we&rsquo;ll apply a configMap with some general configurations for our microservices. In the <code>Apod-to-MQTT</code> and <code>Apod-MQTT-to-Discord</code> repos there are example configMaps. Combine those two into a single file that looks like the one below with your configuration and apply it with <code>kubectl apply -f &lt;configMapfile.yaml&gt; -n apod</code></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-yaml" data-lang="yaml"><span style="display:flex;"><span><span style="color:#f92672">apiVersion</span>: <span style="color:#ae81ff">v1</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">kind</span>: <span style="color:#ae81ff">ConfigMap</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">metadata</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">name</span>: <span style="color:#ae81ff">apod</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">data</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">MQTT_BROKER</span>: <span style="color:#ae81ff">&lt;tcp://MQTT Broker&gt;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">MQTT_TOPIC</span>: <span style="color:#ae81ff">&lt;MQTT Topic&gt;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">DISCORD_CHANNEL_ID</span>: <span style="color:#e6db74">&#34;&lt;Discord channel ID&gt;&#34;</span>
+</span></span></code></pre></div><p>With all of that done our cluster is ready to host our services</p>
 <h1 id="mqtt---mosquittomosquittoinfo">MQTT - Mosquitto<sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup></h1>
 <p>Since our services use MQTT to communicate we&rsquo;ll need to deploy that first.</p>
 <p>Mosquitto is an incredibly lightweight MQTT broker, and the entire install is 3 commands.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">helm repo add k8s-at-home https://k8s-at-home.com/charts/ <span style="color:#75715e"># Add the helm repo</span>
-helm repo update <span style="color:#75715e"># Update helm repos</span>
-helm install mosquitto k8s-at-home/mosquitto -n mqtt <span style="color:#75715e"># Install mosquitto to the mqtt namespace</span>
-</code></pre></div><p>You can edit the <code>values.yaml</code> file to provide custom deployment options, but it&rsquo;s not necessary. A default install will work for our purposes.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>helm repo add k8s-at-home https://k8s-at-home.com/charts/ <span style="color:#75715e"># Add the helm repo</span>
+</span></span><span style="display:flex;"><span>helm repo update <span style="color:#75715e"># Update helm repos</span>
+</span></span><span style="display:flex;"><span>helm install mosquitto k8s-at-home/mosquitto -n mqtt <span style="color:#75715e"># Install mosquitto to the mqtt namespace</span>
+</span></span></code></pre></div><p>You can edit the <code>values.yaml</code> file to provide custom deployment options, but it&rsquo;s not necessary. A default install will work for our purposes.</p>
 <h1 id="discord-bot-and-apod-publisher">Discord Bot and Apod Publisher</h1>
 <p>Rename the <code>apoddiscordbot.yaml.example</code> file in the <code>Apod-MQTT-to-Discord</code> repo and edit it with any values you want to substitute (like the image location), and then deploy with <code>kubectl apply -f &lt;file.yaml&gt; -n apod</code></p>
 <p>Rename the <code>apodtomqtt-cronjob.yaml.example</code> file in the <code>Apod-to-MQTT</code> repo and edit it with any values to want to substitute (like the image location), and then deploy with <code>kubectl apply -f &lt;file.yaml&gt; -n apod</code></p>
 <h1 id="verification">Verification</h1>
 <p>You should be able to run <code>kubectl get all -n apod</code> and view the new services.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">kubectl get all -n apod
-NAME                   READY   STATUS    RESTARTS   AGE
-pod/apod-discord-bot   1/1     Running   <span style="color:#ae81ff">0</span>          63m
-
-NAME                                 SCHEDULE     SUSPEND   ACTIVE   LAST SCHEDULE   AGE
-cronjob.batch/apod-to-mqtt-cronjob   <span style="color:#ae81ff">0</span> <span style="color:#ae81ff">16</span> * * *   False     <span style="color:#ae81ff">0</span>        7h6m            30d
-</code></pre></div><h1 id="conclusion">Conclusion</h1>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>kubectl get all -n apod
+</span></span><span style="display:flex;"><span>NAME                   READY   STATUS    RESTARTS   AGE
+</span></span><span style="display:flex;"><span>pod/apod-discord-bot   1/1     Running   <span style="color:#ae81ff">0</span>          63m
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>NAME                                 SCHEDULE     SUSPEND   ACTIVE   LAST SCHEDULE   AGE
+</span></span><span style="display:flex;"><span>cronjob.batch/apod-to-mqtt-cronjob   <span style="color:#ae81ff">0</span> <span style="color:#ae81ff">16</span> * * *   False     <span style="color:#ae81ff">0</span>        7h6m            30d
+</span></span></code></pre></div><h1 id="conclusion">Conclusion</h1>
 <p>This blog post provided more input on how to build and deploy the services we talked about previously. At some point in the future I may do a final post to wrap up the loose ends with debugging and an in-depth explaniation on what the Kubernetes manifest files are doing, but for now this post should answer the majority of questions I&rsquo;ve received.</p>
-<section class="footnotes" role="doc-endnotes">
+<div class="footnotes" role="doc-endnotes">
 <hr>
 <ol>
-<li id="fn:1" role="doc-endnote">
-<p><a href="https://artifacthub.io/packages/helm/k8s-at-home/mosquitto">https://artifacthub.io/packages/helm/k8s-at-home/mosquitto</a> <a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+<li id="fn:1">
+<p><a href="https://artifacthub.io/packages/helm/k8s-at-home/mosquitto">https://artifacthub.io/packages/helm/k8s-at-home/mosquitto</a>&#160;<a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
 </li>
 </ol>
-</section>
+</div>
 
     </div>
     <div class="post-footer">

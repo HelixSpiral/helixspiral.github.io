@@ -15,7 +15,7 @@
       <guid>https://helixspiral.github.io/posts/2022-07-26-astronomy-picture-of-the-day-notification-service/</guid>
       <description>Overview In this blog we&amp;rsquo;ll cover how the Astronomy Picture of the Day microservices are built and deployed with Docker and Kubernetes, and how to deploy the lightweight MQTT broker Mosquitto.
 This is a follow up to my previous blog post System Scalability and Microservices with some additional information.
-Requirements  Docker installed locally Working Kubernetes cluster Helm installed  GitHub repositories All of the code relating to this blog post can be found at the following links and is released under the GPL-3.</description>
+Requirements Docker installed locally Working Kubernetes cluster Helm installed GitHub repositories All of the code relating to this blog post can be found at the following links and is released under the GPL-3.</description>
     </item>
     
     <item>
@@ -26,7 +26,7 @@ Requirements  Docker installed locally Working Kubernetes cluster Helm installed
       <guid>https://helixspiral.github.io/posts/2022-02-28-system-scalability-and-microservices/</guid>
       <description>Overview This blog will talk about system scalability with relation to microservices and how a monolithic application would be less desired in this example.
 GitHub repositories All of the code relating to this blog post can be found at the following links and is released under the GPL-3.0 license, with the exception of the official NASA api which is released under the Apache-2.0 license.
- Official NASA APOD API - The official NASA API for getting the Astronomy Picture of the Day.</description>
+Official NASA APOD API - The official NASA API for getting the Astronomy Picture of the Day.</description>
     </item>
     
     <item>

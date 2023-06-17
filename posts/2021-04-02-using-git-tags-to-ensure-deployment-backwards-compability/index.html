@@ -3,23 +3,21 @@
   <head>
     <title>Ensuring backwards compatibility in deployments by leveraging git tags // Helix&#39;s Blog</title>
     <meta charset="utf-8" />
-    <meta name="generator" content="Hugo 0.76.4" />
+    <meta name="generator" content="Hugo 0.113.0">
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="author" content="Shawn Smith" />
     <meta name="description" content="We&#39;re creating a REST API and ensuring backwards compatibility in our deployments by leveraging git tags as an automated versioning system." />
     <link rel="stylesheet" href="https://helixspiral.github.io/css/main.min.88e7083eff65effb7485b6e6f38d10afbec25093a6fac42d734ce9024d3defbd.css" />
 
     
-<script type="application/javascript">
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-TYXY2W25C1"></script>
+<script>
 var doNotTrack = false;
 if (!doNotTrack) {
-	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-	(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-	m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-	})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
-	ga('create', 'UA-180576724-1', 'auto');
-	
-	ga('send', 'pageview');
+	window.dataLayer = window.dataLayer || [];
+	function gtag(){dataLayer.push(arguments);}
+	gtag('js', new Date());
+	gtag('config', 'G-TYXY2W25C1', { 'anonymize_ip': false });
 }
 </script>
 
@@ -30,7 +28,7 @@ if (!doNotTrack) {
     <meta property="og:title" content="Ensuring backwards compatibility in deployments by leveraging git tags" />
 <meta property="og:description" content="We&#39;re creating a REST API and ensuring backwards compatibility in our deployments by leveraging git tags as an automated versioning system." />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://helixspiral.github.io/posts/2021-04-02-using-git-tags-to-ensure-deployment-backwards-compability/" />
+<meta property="og:url" content="https://helixspiral.github.io/posts/2021-04-02-using-git-tags-to-ensure-deployment-backwards-compability/" /><meta property="article:section" content="posts" />
 <meta property="article:published_time" content="2021-04-02T00:00:00+00:00" />
 <meta property="article:modified_time" content="2021-04-02T00:00:00+00:00" />
 
@@ -139,14 +137,14 @@ if (!doNotTrack) {
 <p>We now have an RESTful API with automated versioning based on tags in our code revisioning system, and build process that ensures backwards compatibility.</p>
 <p>There are a couple of caveats though, for example once you break compatibility and bump the <code>vMajor</code> version of a git tag you can&rsquo;t edit a previous version on the main branch of the repository. So for example once we went from <code>v1.0.3</code> to <code>v2.0.0</code> we couldn&rsquo;t go back and create a <code>v1.0.4</code>. To do this we would need to create a new branch off the commit that <code>v1.0.3</code> references, make our changes, and create a tag there for <code>v1.0.4</code>. This isn&rsquo;t a huge issue since once the major version is bumped up there should be minimal work put into the legacy version, but it is something to be aware of.</p>
 <p>Another caveat is you can&rsquo;t run multiple versions of the API from the same address and port, this is because only one service can listen on a port at a time. To get around this your CI/CD pipeline should include a loadbalancer that passes traffic based on the <code>/vMajor/</code> portion of the URL. For local testing you can setup a very lightweight nginx service, run the versions on different ports, and have nginx load balance from localhost:80 based on the request URL and send it to the ports your services are listening on.</p>
-<section class="footnotes" role="doc-endnotes">
+<div class="footnotes" role="doc-endnotes">
 <hr>
 <ol>
-<li id="fn:1" role="doc-endnote">
-<p><a href="https://github.com/HelixSpiral/rest-api-automatic-versioning-tutorial/blob/master/main.go#L22">https://github.com/HelixSpiral/rest-api-automatic-versioning-tutorial/blob/master/main.go#L22</a> <a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+<li id="fn:1">
+<p><a href="https://github.com/HelixSpiral/rest-api-automatic-versioning-tutorial/blob/master/main.go#L22">https://github.com/HelixSpiral/rest-api-automatic-versioning-tutorial/blob/master/main.go#L22</a>&#160;<a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
 </li>
 </ol>
-</section>
+</div>
 
     </div>
     <div class="post-footer">
