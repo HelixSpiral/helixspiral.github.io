@@ -1,0 +1,223 @@
+<!doctype html>
+<html lang="en-us">
+  <head>
+    <title>Environment Configurable vs Environment Agnostic Applications // Helix&#39;s Blog</title>
+    <meta charset="utf-8" />
+    <meta name="generator" content="Hugo 0.113.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="author" content="Shawn Smith" />
+    <meta name="description" content="In this blog post we cover the difference between environment configurable and environment agnostic applications, and how agnostic applications are easier for an operations team to manage." />
+    <link rel="stylesheet" href="https://helixspiral.github.io/css/main.min.88e7083eff65effb7485b6e6f38d10afbec25093a6fac42d734ce9024d3defbd.css" />
+
+    
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-TYXY2W25C1"></script>
+<script>
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.dataLayer = window.dataLayer || [];
+	function gtag(){dataLayer.push(arguments);}
+	gtag('js', new Date());
+	gtag('config', 'G-TYXY2W25C1', { 'anonymize_ip': false });
+}
+</script>
+
+    <meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://helixspiral.github.io/Microservices_Green_Cover.png"/>
+
+<meta name="twitter:title" content="Environment Configurable vs Environment Agnostic Applications"/>
+<meta name="twitter:description" content="In this blog post we cover the difference between environment configurable and environment agnostic applications, and how agnostic applications are easier for an operations team to manage."/>
+
+    <meta property="og:title" content="Environment Configurable vs Environment Agnostic Applications" />
+<meta property="og:description" content="In this blog post we cover the difference between environment configurable and environment agnostic applications, and how agnostic applications are easier for an operations team to manage." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://helixspiral.github.io/posts/2023-09-27-environment-configurable-vs-environment-agnostic-applications/" /><meta property="og:image" content="https://helixspiral.github.io/Microservices_Green_Cover.png" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2023-09-27T00:00:00+00:00" />
+<meta property="article:modified_time" content="2023-09-27T00:00:00+00:00" />
+
+
+  </head>
+  <body>
+    <header class="app-header">
+      <a href="https://helixspiral.github.io/"><img class="app-header-avatar" src="/blog_avatar.jpg" alt="Shawn Smith" /></a>
+      <h1>Helix&#39;s Blog</h1>
+      <nav class="app-header-menu">
+          <a class="app-header-menu-item" href="/">Home</a>
+             - 
+          
+          <a class="app-header-menu-item" href="/tags/">Tags</a>
+      </nav>
+      <p>Personal blog that may contain a wide range of content</p>
+      <div class="app-header-social">
+        
+          <a target="_blank" href="https://github.com/HelixSpiral" rel="noreferrer noopener"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-github">
+  <title>github</title>
+  <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path>
+</svg></a>
+        
+          <a target="_blank" href="https://twitter.com/SpiralingHelix" rel="noreferrer noopener"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-twitter">
+  <title>twitter</title>
+  <path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"></path>
+</svg></a>
+        
+          <a target="_blank" href="https://www.linkedin.com/in/HelixSpiral/" rel="noreferrer noopener"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-linkedin">
+  <title>linkedin</title>
+  <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect x="2" y="9" width="4" height="12"></rect><circle cx="4" cy="4" r="2"></circle>
+</svg></a>
+        
+      </div>
+    </header>
+    <main class="app-container">
+      
+  <article class="post">
+    <header class="post-header">
+      <h1 class ="post-title">Environment Configurable vs Environment Agnostic Applications</h1>
+      <div class="post-meta">
+        <div>
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-calendar">
+  <title>calendar</title>
+  <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line>
+</svg>
+          Sep 27, 2023
+        </div>
+        <div>
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-clock">
+  <title>clock</title>
+  <circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline>
+</svg>
+          4 min read
+        </div>
+        <div>
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tag">
+  <title>tag</title>
+  <path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7" y2="7"></line>
+</svg>
+              <a class="tag" href="https://helixspiral.github.io/tags/build/">build</a>
+              <a class="tag" href="https://helixspiral.github.io/tags/configuration/">configuration</a>
+              <a class="tag" href="https://helixspiral.github.io/tags/deployment/">deployment</a>
+              <a class="tag" href="https://helixspiral.github.io/tags/environment/">environment</a>
+              <a class="tag" href="https://helixspiral.github.io/tags/go/">go</a>
+              <a class="tag" href="https://helixspiral.github.io/tags/golang/">golang</a>
+        </div>
+      </div>
+    </header>
+    <div class="post-content">
+      <h1 id="introduction">Introduction</h1>
+<p>As a member of an operations team you want things to be easy, you want things to &ldquo;just work&rdquo; the same way in a testing environment as they do in a production one. In this post we&rsquo;ll cover applications that need to be configured, and how to remove those needed configurations in favor of an application that &ldquo;just works&rdquo;.</p>
+<h1 id="environment-configurable">Environment configurable</h1>
+<p>Here is our example environment configurable application:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#f92672">package</span> <span style="color:#a6e22e">main</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> (
+</span></span><span style="display:flex;"><span>	<span style="color:#e6db74">&#34;fmt&#34;</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#e6db74">&#34;os&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>	<span style="color:#e6db74">&#34;github.com/aws/aws-sdk-go/aws&#34;</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#e6db74">&#34;github.com/aws/aws-sdk-go/aws/session&#34;</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#e6db74">&#34;github.com/aws/aws-sdk-go/service/sqs&#34;</span>
+</span></span><span style="display:flex;"><span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">main</span>() {
+</span></span><span style="display:flex;"><span>	<span style="color:#75715e">// Setup aws session
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>	<span style="color:#a6e22e">sess</span>, <span style="color:#a6e22e">err</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">session</span>.<span style="color:#a6e22e">NewSession</span>(<span style="color:#f92672">&amp;</span><span style="color:#a6e22e">aws</span>.<span style="color:#a6e22e">Config</span>{
+</span></span><span style="display:flex;"><span>		<span style="color:#a6e22e">Region</span>: <span style="color:#a6e22e">aws</span>.<span style="color:#a6e22e">String</span>(<span style="color:#e6db74">&#34;us-west-2&#34;</span>),
+</span></span><span style="display:flex;"><span>	})
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">err</span> <span style="color:#f92672">!=</span> <span style="color:#66d9ef">nil</span> {
+</span></span><span style="display:flex;"><span>		panic(<span style="color:#a6e22e">err</span>)
+</span></span><span style="display:flex;"><span>	}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>	<span style="color:#75715e">// Setup sqs service
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>	<span style="color:#a6e22e">sqsSvc</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">sqs</span>.<span style="color:#a6e22e">New</span>(<span style="color:#a6e22e">sess</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>	<span style="color:#75715e">// Get the queue url from environment variable
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>	<span style="color:#a6e22e">queueUrl</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">os</span>.<span style="color:#a6e22e">Getenv</span>(<span style="color:#e6db74">&#34;QUEUE_URL&#34;</span>)
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#e6db74">&#34;Queue:&#34;</span>, <span style="color:#a6e22e">queueUrl</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>	<span style="color:#75715e">// Get queue results
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>	<span style="color:#a6e22e">queueResult</span>, <span style="color:#a6e22e">err</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">sqsSvc</span>.<span style="color:#a6e22e">ReceiveMessage</span>(<span style="color:#f92672">&amp;</span><span style="color:#a6e22e">sqs</span>.<span style="color:#a6e22e">ReceiveMessageInput</span>{
+</span></span><span style="display:flex;"><span>		<span style="color:#a6e22e">QueueUrl</span>: <span style="color:#a6e22e">aws</span>.<span style="color:#a6e22e">String</span>(<span style="color:#a6e22e">queueUrl</span>),
+</span></span><span style="display:flex;"><span>	})
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">err</span> <span style="color:#f92672">!=</span> <span style="color:#66d9ef">nil</span> {
+</span></span><span style="display:flex;"><span>		panic(<span style="color:#a6e22e">err</span>)
+</span></span><span style="display:flex;"><span>	}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>	<span style="color:#75715e">// Print any messages we received from the queue
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>	<span style="color:#66d9ef">for</span> <span style="color:#a6e22e">_</span>, <span style="color:#a6e22e">y</span> <span style="color:#f92672">:=</span> <span style="color:#66d9ef">range</span> <span style="color:#a6e22e">queueResult</span>.<span style="color:#a6e22e">Messages</span> {
+</span></span><span style="display:flex;"><span>		<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#e6db74">&#34;Message:&#34;</span>, <span style="color:#a6e22e">y</span>)
+</span></span><span style="display:flex;"><span>	}
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>This can be built with <code>go build -o main .</code></p>
+<p>When talking about environment configurable applications we typically see a lot of environment variables used, which is what we used, but this could also be config files or other methods as well.</p>
+<p>Our demo application takes an environment variable in the form of an SQS Queue URL. This is considered to be an environment configurable application because it can be deployed to any environment, and as long as you give it the proper environment variable it will work as expected.</p>
+<p>An example of how to run this locally: <code>QUEUE_URL=https://test.queue/url ./application</code></p>
+<h1 id="why-this-is-good-and-what-can-be-improved">Why this is good and what can be improved?</h1>
+<p>From an operations perspective this is great, we can deploy the same application to multiple environments without any code changes, this makes it easy to setup a CI/CD workflow for automation.</p>
+<p>The downside? It requires specific configuration per environment and while this isn&rsquo;t necessarily bad because we only have one environment variable to worry about, larger applications require much more configuration and this can take a toll on your operations staff trying to remember and manage.</p>
+<p>So how do we fix it? Every application is going to have some level of configuration needed but we can cut down on the amount needed by getting information that would have previously been configured from the environment we&rsquo;re deployed in.</p>
+<p>For example, in the above configurable example we need an SQS Queue URL to run and we pass that in as an environment variable. If we were to name that needed SQS Queue the same in every environment, for example <code>my-new-sqs-queue</code>, we could then have the application use that to get the Queue URL with no configuration needed.</p>
+<h1 id="environment-agnostic">Environment agnostic</h1>
+<p>Updated application that is environment agnostic:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#f92672">package</span> <span style="color:#a6e22e">main</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> (
+</span></span><span style="display:flex;"><span>	<span style="color:#e6db74">&#34;fmt&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>	<span style="color:#e6db74">&#34;github.com/aws/aws-sdk-go/aws&#34;</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#e6db74">&#34;github.com/aws/aws-sdk-go/aws/session&#34;</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#e6db74">&#34;github.com/aws/aws-sdk-go/service/sqs&#34;</span>
+</span></span><span style="display:flex;"><span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">main</span>() {
+</span></span><span style="display:flex;"><span>	<span style="color:#75715e">// Setup the aws session
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>	<span style="color:#a6e22e">sess</span>, <span style="color:#a6e22e">err</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">session</span>.<span style="color:#a6e22e">NewSession</span>(<span style="color:#f92672">&amp;</span><span style="color:#a6e22e">aws</span>.<span style="color:#a6e22e">Config</span>{
+</span></span><span style="display:flex;"><span>		<span style="color:#a6e22e">Region</span>: <span style="color:#a6e22e">aws</span>.<span style="color:#a6e22e">String</span>(<span style="color:#e6db74">&#34;us-west-2&#34;</span>),
+</span></span><span style="display:flex;"><span>	})
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">err</span> <span style="color:#f92672">!=</span> <span style="color:#66d9ef">nil</span> {
+</span></span><span style="display:flex;"><span>		panic(<span style="color:#a6e22e">err</span>)
+</span></span><span style="display:flex;"><span>	}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>	<span style="color:#75715e">// Setup the sqs service
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>	<span style="color:#a6e22e">sqsSvc</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">sqs</span>.<span style="color:#a6e22e">New</span>(<span style="color:#a6e22e">sess</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>	<span style="color:#75715e">// Get the queue url from the environment we&#39;re deployed in
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>	<span style="color:#a6e22e">queueUrl</span>, <span style="color:#a6e22e">err</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">sqsSvc</span>.<span style="color:#a6e22e">GetQueueUrl</span>(<span style="color:#f92672">&amp;</span><span style="color:#a6e22e">sqs</span>.<span style="color:#a6e22e">GetQueueUrlInput</span>{
+</span></span><span style="display:flex;"><span>		<span style="color:#a6e22e">QueueName</span>: <span style="color:#a6e22e">aws</span>.<span style="color:#a6e22e">String</span>(<span style="color:#e6db74">&#34;my-new-sqs-queue&#34;</span>),
+</span></span><span style="display:flex;"><span>	})
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">err</span> <span style="color:#f92672">!=</span> <span style="color:#66d9ef">nil</span> {
+</span></span><span style="display:flex;"><span>		panic(<span style="color:#a6e22e">err</span>)
+</span></span><span style="display:flex;"><span>	}
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#e6db74">&#34;Queue:&#34;</span>, <span style="color:#f92672">*</span><span style="color:#a6e22e">queueUrl</span>.<span style="color:#a6e22e">QueueUrl</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>	<span style="color:#75715e">// Get qeuue results
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>	<span style="color:#a6e22e">queueResult</span>, <span style="color:#a6e22e">err</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">sqsSvc</span>.<span style="color:#a6e22e">ReceiveMessage</span>(<span style="color:#f92672">&amp;</span><span style="color:#a6e22e">sqs</span>.<span style="color:#a6e22e">ReceiveMessageInput</span>{
+</span></span><span style="display:flex;"><span>		<span style="color:#a6e22e">QueueUrl</span>: <span style="color:#a6e22e">queueUrl</span>.<span style="color:#a6e22e">QueueUrl</span>,
+</span></span><span style="display:flex;"><span>	})
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">err</span> <span style="color:#f92672">!=</span> <span style="color:#66d9ef">nil</span> {
+</span></span><span style="display:flex;"><span>		panic(<span style="color:#a6e22e">err</span>)
+</span></span><span style="display:flex;"><span>	}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>	<span style="color:#75715e">// Print any messages we received from the queue
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>	<span style="color:#66d9ef">for</span> <span style="color:#a6e22e">_</span>, <span style="color:#a6e22e">y</span> <span style="color:#f92672">:=</span> <span style="color:#66d9ef">range</span> <span style="color:#a6e22e">queueResult</span>.<span style="color:#a6e22e">Messages</span> {
+</span></span><span style="display:flex;"><span>		<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#e6db74">&#34;Message:&#34;</span>, <span style="color:#a6e22e">y</span>)
+</span></span><span style="display:flex;"><span>	}
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>This can be built with <code>go build -o main .</code></p>
+<p>We&rsquo;ve updated our application to now look for a SQS Queue named <code>my-new-sqs-queue</code> and get it&rsquo;s own Queue URL from that based on the environment it&rsquo;s deployed in.</p>
+<p>An example command to run this is simply <code>./application</code>, no further configuration is necessary.</p>
+<p>This application will run in any AWS environment it&rsquo;s deployed to, provided it has the proper access to read the SQS queue it needs.</p>
+<h1 id="environment-consistency">Environment consistency</h1>
+<p>My goal, and the goal of almost every person working in a DevOps/Platform Engineering/SRE role is to reach a point where development, quality, and production environments are nearly identical. We want easily repeatable steps so it can be automated, and to reduce surprises when code is promoted from one environment to another.</p>
+<p>This is doable with applications written in a configurable manner but it leads to more work, every application is likely going to need some level of configuration to run and wont be truly agnostic, but where and when possible things should be written to &ldquo;just work&rdquo;, your operations team will thank you.</p>
+<h1 id="end-note">End note</h1>
+<p>When deploying applications don&rsquo;t add your environment name to services unless you have a good reason, for example in the case of S3 buckets you need a globally unique name and have to do this.</p>
+<p>It may be tempting to do things like <code>servicename-development</code> or <code>servicename-production</code>, but please don&rsquo;t do if there isn&rsquo;t a good reason for doing it. As long as the environments are separated you don&rsquo;t need name differences like this.</p>
+<p>For example: <code>my-new-sqs-queue</code> instead of <code>my-new-sqs-queue-[environment]</code>. This allows us to reference the queue by <code>my-new-sqs-queue</code> without needing to know anything else, it &ldquo;just works&rdquo;.</p>
+
+    </div>
+    <div class="post-footer">
+      
+    </div>
+  </article>
+
+    </main>
+  </body>
+</html>

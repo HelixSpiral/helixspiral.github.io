@@ -6,31 +6,67 @@
     <description>Recent content in Tags on Helix&#39;s Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Fri, 16 Jun 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://helixspiral.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
-    <item>
-      <title>automation</title>
-      <link>https://helixspiral.github.io/tags/automation/</link>
-      <pubDate>Fri, 16 Jun 2023 00:00:00 +0000</pubDate>
-      
-      <guid>https://helixspiral.github.io/tags/automation/</guid>
-      <description></description>
-    </item>
-    
+    <lastBuildDate>Wed, 27 Sep 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://helixspiral.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>build</title>
       <link>https://helixspiral.github.io/tags/build/</link>
-      <pubDate>Fri, 16 Jun 2023 00:00:00 +0000</pubDate>
+      <pubDate>Wed, 27 Sep 2023 00:00:00 +0000</pubDate>
       
       <guid>https://helixspiral.github.io/tags/build/</guid>
       <description></description>
     </item>
     
     <item>
+      <title>configuration</title>
+      <link>https://helixspiral.github.io/tags/configuration/</link>
+      <pubDate>Wed, 27 Sep 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://helixspiral.github.io/tags/configuration/</guid>
+      <description></description>
+    </item>
+    
+    <item>
       <title>deployment</title>
       <link>https://helixspiral.github.io/tags/deployment/</link>
-      <pubDate>Fri, 16 Jun 2023 00:00:00 +0000</pubDate>
+      <pubDate>Wed, 27 Sep 2023 00:00:00 +0000</pubDate>
       
       <guid>https://helixspiral.github.io/tags/deployment/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>environment</title>
+      <link>https://helixspiral.github.io/tags/environment/</link>
+      <pubDate>Wed, 27 Sep 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://helixspiral.github.io/tags/environment/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>go</title>
+      <link>https://helixspiral.github.io/tags/go/</link>
+      <pubDate>Wed, 27 Sep 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://helixspiral.github.io/tags/go/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>golang</title>
+      <link>https://helixspiral.github.io/tags/golang/</link>
+      <pubDate>Wed, 27 Sep 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://helixspiral.github.io/tags/golang/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>automation</title>
+      <link>https://helixspiral.github.io/tags/automation/</link>
+      <pubDate>Fri, 16 Jun 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://helixspiral.github.io/tags/automation/</guid>
       <description></description>
     </item>
     
@@ -121,24 +157,6 @@
       <pubDate>Tue, 26 Jul 2022 00:00:00 +0000</pubDate>
       
       <guid>https://helixspiral.github.io/tags/git/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>go</title>
-      <link>https://helixspiral.github.io/tags/go/</link>
-      <pubDate>Tue, 26 Jul 2022 00:00:00 +0000</pubDate>
-      
-      <guid>https://helixspiral.github.io/tags/go/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>golang</title>
-      <link>https://helixspiral.github.io/tags/golang/</link>
-      <pubDate>Tue, 26 Jul 2022 00:00:00 +0000</pubDate>
-      
-      <guid>https://helixspiral.github.io/tags/golang/</guid>
       <description></description>
     </item>
     

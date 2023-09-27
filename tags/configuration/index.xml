@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>configuration on Helix&#39;s Blog</title>
+    <link>https://helixspiral.github.io/tags/configuration/</link>
+    <description>Recent content in configuration on Helix&#39;s Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Wed, 27 Sep 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://helixspiral.github.io/tags/configuration/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Environment Configurable vs Environment Agnostic Applications</title>
+      <link>https://helixspiral.github.io/posts/2023-09-27-environment-configurable-vs-environment-agnostic-applications/</link>
+      <pubDate>Wed, 27 Sep 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://helixspiral.github.io/posts/2023-09-27-environment-configurable-vs-environment-agnostic-applications/</guid>
+      <description>Introduction As a member of an operations team you want things to be easy, you want things to &amp;ldquo;just work&amp;rdquo; the same way in a testing environment as they do in a production one. In this post we&amp;rsquo;ll cover applications that need to be configured, and how to remove those needed configurations in favor of an application that &amp;ldquo;just works&amp;rdquo;.
+Environment configurable Here is our example environment configurable application:
+package main import ( &amp;#34;fmt&amp;#34; &amp;#34;os&amp;#34; &amp;#34;github.</description>
+    </item>
+    
+  </channel>
+</rss>
