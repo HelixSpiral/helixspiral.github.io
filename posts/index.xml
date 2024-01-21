@@ -6,7 +6,17 @@
     <description>Recent content in Posts on Helix&#39;s Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Wed, 27 Sep 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://helixspiral.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Fri, 19 Jan 2024 00:00:00 +0000</lastBuildDate><atom:link href="https://helixspiral.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Chicken Coop Tech</title>
+      <link>https://helixspiral.github.io/posts/2024-01-19-chicken-coop-tech/</link>
+      <pubDate>Fri, 19 Jan 2024 00:00:00 +0000</pubDate>
+      
+      <guid>https://helixspiral.github.io/posts/2024-01-19-chicken-coop-tech/</guid>
+      <description>Overview Over the end of year 2023 Holidays I had a vacation and started working on revamping some tech for my chicken coop. This blog post is going to detail what we had initially, what I&amp;rsquo;m building, and some future ideas for the chicken tech.
+Equipment/Software Used Original Helium Hotspot - Any official Helium Hotspot1 or home-built Data-Only2 hotspot will work SenseCAP 2103 (2)3 - LoRaWAN Temp, Humidity, and CO2 Sensor Raspberry PI 4b 8GB (2) - Local k8s cluster running in my home Helium Console4 - Helium Network console provided by the Helium Foundation, but any Helium-compatible console will work SenseCAP-Decoder5 - Javascript function for decoding 210X sensors provided by SenseCAP.</description>
+    </item>
+    
     <item>
       <title>Environment Configurable vs Environment Agnostic Applications</title>
       <link>https://helixspiral.github.io/posts/2023-09-27-environment-configurable-vs-environment-agnostic-applications/</link>

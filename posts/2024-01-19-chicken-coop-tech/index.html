@@ -1,0 +1,201 @@
+<!doctype html>
+<html lang="en-us">
+  <head>
+    <title>Chicken Coop Tech // Helix&#39;s Blog</title>
+    <meta charset="utf-8" />
+    <meta name="generator" content="Hugo 0.113.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="author" content="Shawn Smith" />
+    <meta name="description" content="A breif post detailing some chicken coop monitoring I&#39;m working on." />
+    <link rel="stylesheet" href="https://helixspiral.github.io/css/main.min.88e7083eff65effb7485b6e6f38d10afbec25093a6fac42d734ce9024d3defbd.css" />
+
+    
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-TYXY2W25C1"></script>
+<script>
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.dataLayer = window.dataLayer || [];
+	function gtag(){dataLayer.push(arguments);}
+	gtag('js', new Date());
+	gtag('config', 'G-TYXY2W25C1', { 'anonymize_ip': false });
+}
+</script>
+
+    <meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://helixspiral.github.io/chickens.jpg"/>
+
+<meta name="twitter:title" content="Chicken Coop Tech"/>
+<meta name="twitter:description" content="A breif post detailing some chicken coop monitoring I&#39;m working on."/>
+
+    <meta property="og:title" content="Chicken Coop Tech" />
+<meta property="og:description" content="A breif post detailing some chicken coop monitoring I&#39;m working on." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://helixspiral.github.io/posts/2024-01-19-chicken-coop-tech/" /><meta property="og:image" content="https://helixspiral.github.io/chickens.jpg" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2024-01-19T00:00:00+00:00" />
+<meta property="article:modified_time" content="2024-01-19T00:00:00+00:00" />
+
+
+  </head>
+  <body>
+    <header class="app-header">
+      <a href="https://helixspiral.github.io/"><img class="app-header-avatar" src="/blog_avatar.jpg" alt="Shawn Smith" /></a>
+      <h1>Helix&#39;s Blog</h1>
+      <nav class="app-header-menu">
+          <a class="app-header-menu-item" href="/">Home</a>
+             - 
+          
+          <a class="app-header-menu-item" href="/tags/">Tags</a>
+      </nav>
+      <p>Personal blog that may contain a wide range of content</p>
+      <div class="app-header-social">
+        
+          <a target="_blank" href="https://github.com/HelixSpiral" rel="noreferrer noopener"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-github">
+  <title>github</title>
+  <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path>
+</svg></a>
+        
+          <a target="_blank" href="https://twitter.com/SpiralingHelix" rel="noreferrer noopener"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-twitter">
+  <title>twitter</title>
+  <path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"></path>
+</svg></a>
+        
+          <a target="_blank" href="https://www.linkedin.com/in/HelixSpiral/" rel="noreferrer noopener"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-linkedin">
+  <title>linkedin</title>
+  <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect x="2" y="9" width="4" height="12"></rect><circle cx="4" cy="4" r="2"></circle>
+</svg></a>
+        
+      </div>
+    </header>
+    <main class="app-container">
+      
+  <article class="post">
+    <header class="post-header">
+      <h1 class ="post-title">Chicken Coop Tech</h1>
+      <div class="post-meta">
+        <div>
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-calendar">
+  <title>calendar</title>
+  <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line>
+</svg>
+          Jan 19, 2024
+        </div>
+        <div>
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-clock">
+  <title>clock</title>
+  <circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline>
+</svg>
+          5 min read
+        </div>
+        <div>
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tag">
+  <title>tag</title>
+  <path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7" y2="7"></line>
+</svg>
+              <a class="tag" href="https://helixspiral.github.io/tags/api/">api</a>
+              <a class="tag" href="https://helixspiral.github.io/tags/automation/">automation</a>
+              <a class="tag" href="https://helixspiral.github.io/tags/chicken/">chicken</a>
+              <a class="tag" href="https://helixspiral.github.io/tags/coop/">coop</a>
+              <a class="tag" href="https://helixspiral.github.io/tags/containers/">containers</a>
+              <a class="tag" href="https://helixspiral.github.io/tags/docker/">docker</a>
+              <a class="tag" href="https://helixspiral.github.io/tags/grpc/">grpc</a>
+              <a class="tag" href="https://helixspiral.github.io/tags/helium-network/">helium-network</a>
+              <a class="tag" href="https://helixspiral.github.io/tags/helium/">helium</a>
+              <a class="tag" href="https://helixspiral.github.io/tags/k8s/">k8s</a>
+              <a class="tag" href="https://helixspiral.github.io/tags/kubernetes/">kubernetes</a>
+              <a class="tag" href="https://helixspiral.github.io/tags/raspberry-pi/">raspberry-pi</a>
+              <a class="tag" href="https://helixspiral.github.io/tags/rest/">rest</a>
+              <a class="tag" href="https://helixspiral.github.io/tags/sensecap/">sensecap</a>
+              <a class="tag" href="https://helixspiral.github.io/tags/sensors/">sensors</a>
+        </div>
+      </div>
+    </header>
+    <div class="post-content">
+      <h1 id="overview">Overview</h1>
+<p>Over the end of year 2023 Holidays I had a vacation and started working on revamping some tech for my chicken coop. This blog post is going to detail what we had initially, what I&rsquo;m building, and some future ideas for the chicken tech.</p>
+<h1 id="equipmentsoftware-used">Equipment/Software Used</h1>
+<ul>
+<li><strong>Original Helium Hotspot</strong> - Any official Helium Hotspot<sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup> or home-built Data-Only<sup id="fnref:2"><a href="#fn:2" class="footnote-ref" role="doc-noteref">2</a></sup> hotspot will work</li>
+<li><strong>SenseCAP 2103 (2)</strong><sup id="fnref:3"><a href="#fn:3" class="footnote-ref" role="doc-noteref">3</a></sup> - LoRaWAN Temp, Humidity, and CO2 Sensor</li>
+<li><strong>Raspberry PI 4b 8GB (2)</strong> - Local k8s cluster running in my home</li>
+<li><strong>Helium Console</strong><sup id="fnref:4"><a href="#fn:4" class="footnote-ref" role="doc-noteref">4</a></sup> - Helium Network console provided by the Helium Foundation, but any Helium-compatible console will work</li>
+<li><strong>SenseCAP-Decoder</strong><sup id="fnref:5"><a href="#fn:5" class="footnote-ref" role="doc-noteref">5</a></sup> - Javascript function for decoding 210X sensors provided by SenseCAP.</li>
+</ul>
+<h1 id="initial-build">Initial Build</h1>
+<p>To start we were running two SenseCAP 2103 sensors, one inside and one outside the chicken coop, using entirely pre-made integrations in the Helium Console and using a modified version of the SenseCAP-Decoder to work without using DataCake.</p>
+<p>A general overview of how the data flowed was something like:</p>
+<ul>
+<li>Sensor broadcasts data</li>
+<li>Helium Hotspot takes data and sends to Helium Console</li>
+<li>Helium Console uses the modified SenseCAP-Decoder function to decode the sensor payload</li>
+<li>Helium Console takes the decoded payload and uses the provided Google Sheet integration to upload the data to Google Sheets</li>
+</ul>
+<h1 id="what-went-well--what-didnt">What went well &amp; what didn&rsquo;t?</h1>
+<p>For me the biggest thing was being able to log the data, in the morning I wanted to check what the coldest temp the coop got to overnight. Secondary goals included wanting to compare the inside and outside temps and humidity, and monitoring/comparing CO2 levels in the coop during the day and night.</p>
+<p>The drawbacks are a lot of the monitoring and analyzing the data was manual work, and the more data that gets added to the Google Sheet the slower it loads on my phone. The setup was great for an MVP to get some data to look at but it&rsquo;s definitely not a long term viable solution.</p>
+<h1 id="what-im-building-for-cooptech20">What I&rsquo;m building for CoopTech2.0</h1>
+<p>For the revamp I decided my requirements would be simple, a proper permanent data store and simple website or app to view the data.</p>
+<p>At the time of writing this the Helium Console hosted by the Foundation offers two &ldquo;core&rdquo; integrations, HTTP and MQQT, as well as 12 community integrations for various managed services like AWS IoT Core, Azure IoT Hub, Google Sheets, etc.</p>
+<p>Unfortunately none of the provided integrations completely satisfied by requirements so I decided I&rsquo;d build my own using the HTTP integration.</p>
+<p>The new proposed data flow looked more like this:</p>
+<ul>
+<li>Sensor broadcasts data</li>
+<li>Helium Hotspot takes data and sends to Helium Console</li>
+<li>Helium Console sends an HTTP POST request to an endpoint I provide</li>
+<li>Custom written <code>sensor-decoder-service</code> takes the HTTP POST request, decodes the data, and stores it in a database</li>
+</ul>
+<h1 id="new-infrastructure">New Infrastructure</h1>
+<p>The proposed revamp requires some additional infrastructure to run now that we&rsquo;re not relying entirely on the Helium Console to manage and run our integrations.</p>
+<ul>
+<li>A server of some sort that can take an HTTP POST</li>
+<li>A service that can decode the sensor payload data</li>
+<li>A database</li>
+</ul>
+<p>For the server I chose to run a small kubernetes cluster in my house, having done this in the past for educational purposes it seemed like it&rsquo;d be fun to do it again. This also gives me the ability to easily add new services, scale the cluster size, and replace broken nodes with fairly minimal effort.</p>
+<p>For the decoder service I&rsquo;ve started work on a gRPC service I&rsquo;m calling the <code>sensor-decoder-service</code>, at the time of writing this it&rsquo;s successfully taking data from the Helium Console HTTP POST request and decoding it. To make the HTTP POST&lt;-&gt;gRPC integration work I have another small service called <code>sensor-decoder-service-proxy</code> that uses <code>grpc-gateway</code> to make a REST API proxy for the service.</p>
+<p>I went with gRPC for two main reasons:</p>
+<ol>
+<li>It allows me to generate a lot of the code I need simple by writing a protobuf file</li>
+<li>Education and personal growth, gRPC seems like a great new set of tools to work with and while I&rsquo;ve worked with it on occasion it feels good to use it for this project.</li>
+</ol>
+<p>The database I still haven&rsquo;t decided on yet. While I&rsquo;ve been working on all of this I still have the legacy system in place dutifully logging the data to Google Sheets, so I have some time to figure out what best fits my needs. I&rsquo;ve been considering some free tier cloud hosted services since the amount of data is fairly minimal, but still undecided.</p>
+<h1 id="next-steps--future-plans">Next steps &amp; future plans</h1>
+<ul>
+<li>Pick a database</li>
+<li>Rewrite the <code>sensor-decoder-service</code> to strictly decode data and return a result</li>
+<li>Write a new service to handle data ingress from the Helium Console, use the <code>sensor-decoder-service</code> to decode the data, and then store it in the db</li>
+<li>A UI of somesort to view the data</li>
+</ul>
+<p>The biggest thing I need to do is settle on a data store, while I&rsquo;m trying to figure that out the next couple of tasks are mainly cleanup ones.</p>
+<p>I want to change the <code>sensor-decoder-service</code> to do exactly what the name says, decode the data, and have a new service worry about getting and storing the data. This separation will make it easier in the future when I&rsquo;m adding more sensors of different kinds to the coop.</p>
+<h1 id="closing">Closing</h1>
+<p>This was meant to be a fairly high level overview of where we were, where we are, and where we&rsquo;re going. It&rsquo;s been a lot of fun having chickens again and I&rsquo;m glad this Coop Tech project was born, in the future I plan to do another post with more in-depth details on everything and make the code open source.</p>
+<div class="footnotes" role="doc-endnotes">
+<hr>
+<ol>
+<li id="fn:1">
+<p><a href="https://www.helium.com/mine#hotspots">https://www.helium.com/mine#hotspots</a>&#160;<a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+<li id="fn:2">
+<p><a href="https://docs.helium.com/iot/data-only-hotspots">https://docs.helium.com/iot/data-only-hotspots</a>&#160;<a href="#fnref:2" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+<li id="fn:3">
+<p>Link to the SenseCAP 2103: <a href="https://www.seeedstudio.com/SenseCAP-S2103-LoRaWAN-CO2-Temperature-and-Humidity-Sensor-p-5356.html">https://www.seeedstudio.com/SenseCAP-S2103-LoRaWAN-CO2-Temperature-and-Humidity-Sensor-p-5356.html</a>&#160;<a href="#fnref:3" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+<li id="fn:4">
+<p>Link to the Helium Console: <a href="https://console.helium.com">https://console.helium.com</a>&#160;<a href="#fnref:4" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+<li id="fn:5">
+<p>Link to the unmodified SenseCAP-Decoder: <a href="https://github.com/Seeed-Solution/SenseCAP-Decoder/blob/main/S210X/Helium/SenseCAP_S210X_Helium_Decoder.js">https://github.com/Seeed-Solution/SenseCAP-Decoder/blob/main/S210X/Helium/SenseCAP_S210X_Helium_Decoder.js</a>&#160;<a href="#fnref:5" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+</ol>
+</div>
+
+    </div>
+    <div class="post-footer">
+      
+    </div>
+  </article>
+
+    </main>
+  </body>
+</html>

@@ -3,7 +3,61 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
     <loc>https://helixspiral.github.io/</loc>
-    <lastmod>2023-09-27T00:00:00+00:00</lastmod>
+    <lastmod>2024-01-19T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://helixspiral.github.io/tags/api/</loc>
+    <lastmod>2024-01-19T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://helixspiral.github.io/tags/automation/</loc>
+    <lastmod>2024-01-19T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://helixspiral.github.io/tags/chicken/</loc>
+    <lastmod>2024-01-19T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://helixspiral.github.io/posts/2024-01-19-chicken-coop-tech/</loc>
+    <lastmod>2024-01-19T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://helixspiral.github.io/tags/containers/</loc>
+    <lastmod>2024-01-19T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://helixspiral.github.io/tags/coop/</loc>
+    <lastmod>2024-01-19T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://helixspiral.github.io/tags/docker/</loc>
+    <lastmod>2024-01-19T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://helixspiral.github.io/tags/grpc/</loc>
+    <lastmod>2024-01-19T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://helixspiral.github.io/tags/helium/</loc>
+    <lastmod>2024-01-19T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://helixspiral.github.io/tags/helium-network/</loc>
+    <lastmod>2024-01-19T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://helixspiral.github.io/tags/k8s/</loc>
+    <lastmod>2024-01-19T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://helixspiral.github.io/tags/kubernetes/</loc>
+    <lastmod>2024-01-19T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://helixspiral.github.io/posts/</loc>
+    <lastmod>2024-01-19T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://helixspiral.github.io/tags/raspberry-pi/</loc>
+    <lastmod>2024-01-19T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://helixspiral.github.io/tags/rest/</loc>
+    <lastmod>2024-01-19T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://helixspiral.github.io/tags/sensecap/</loc>
+    <lastmod>2024-01-19T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://helixspiral.github.io/tags/sensors/</loc>
+    <lastmod>2024-01-19T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://helixspiral.github.io/tags/</loc>
+    <lastmod>2024-01-19T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://helixspiral.github.io/tags/build/</loc>
     <lastmod>2023-09-27T00:00:00+00:00</lastmod>
@@ -26,18 +80,6 @@
     <loc>https://helixspiral.github.io/tags/golang/</loc>
     <lastmod>2023-09-27T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://helixspiral.github.io/posts/</loc>
-    <lastmod>2023-09-27T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>https://helixspiral.github.io/tags/</loc>
-    <lastmod>2023-09-27T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>https://helixspiral.github.io/tags/automation/</loc>
-    <lastmod>2023-06-16T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>https://helixspiral.github.io/tags/docker/</loc>
-    <lastmod>2023-06-16T00:00:00+00:00</lastmod>
-  </url><url>
     <loc>https://helixspiral.github.io/tags/microservices/</loc>
     <lastmod>2023-06-16T00:00:00+00:00</lastmod>
   </url><url>
@@ -46,9 +88,6 @@
   </url><url>
     <loc>https://helixspiral.github.io/tags/rust/</loc>
     <lastmod>2023-06-16T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>https://helixspiral.github.io/tags/api/</loc>
-    <lastmod>2022-07-26T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://helixspiral.github.io/tags/api-wrapper/</loc>
     <lastmod>2022-07-26T00:00:00+00:00</lastmod>
@@ -110,19 +149,7 @@
     <loc>https://helixspiral.github.io/posts/2020-10-13-automating-kubernetes-with-saltstack/</loc>
     <lastmod>2020-10-13T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://helixspiral.github.io/tags/containers/</loc>
-    <lastmod>2020-10-13T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>https://helixspiral.github.io/tags/k8s/</loc>
-    <lastmod>2020-10-13T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>https://helixspiral.github.io/tags/kubernetes/</loc>
-    <lastmod>2020-10-13T00:00:00+00:00</lastmod>
-  </url><url>
     <loc>https://helixspiral.github.io/tags/orchestration/</loc>
-    <lastmod>2020-10-13T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>https://helixspiral.github.io/tags/raspberry-pi/</loc>
     <lastmod>2020-10-13T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://helixspiral.github.io/tags/saltstack/</loc>
