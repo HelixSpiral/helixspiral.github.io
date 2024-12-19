@@ -6,7 +6,17 @@
     <description>Recent content in docker on Helix&#39;s Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Fri, 19 Jan 2024 00:00:00 +0000</lastBuildDate><atom:link href="https://helixspiral.github.io/tags/docker/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Thu, 19 Dec 2024 00:00:00 +0000</lastBuildDate><atom:link href="https://helixspiral.github.io/tags/docker/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Automated certificate management in local Kubernetes clusters, with local domains</title>
+      <link>https://helixspiral.github.io/posts/2024-12-19-kubernetes-tls-certificates-with-local-domains/</link>
+      <pubDate>Thu, 19 Dec 2024 00:00:00 +0000</pubDate>
+      
+      <guid>https://helixspiral.github.io/posts/2024-12-19-kubernetes-tls-certificates-with-local-domains/</guid>
+      <description>Overview / Requirements / Setup After setting up external-dns and cert-manager for the hundreth time I thought it&amp;rsquo;d be fun to add some functionality to my homelab cluster and have proper signed certs there. This blog post is a basic outline of how to setup cert-manager to sign certificates using a certificate and key provided from an intermediary CA.
+I&amp;rsquo;m using pfSense to both provide DNS to my .lan domain and generate the root and intermediary CA certs, you can use whatever platform you&amp;rsquo;d like but the steps outlined here use pfSense.</description>
+    </item>
+    
     <item>
       <title>Chicken Coop Tech</title>
       <link>https://helixspiral.github.io/posts/2024-01-19-chicken-coop-tech/</link>

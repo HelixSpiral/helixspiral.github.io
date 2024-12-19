@@ -1,0 +1,282 @@
+<!doctype html>
+<html lang="en-us">
+  <head>
+    <title>Automated certificate management in local Kubernetes clusters, with local domains // Helix&#39;s Blog</title>
+    <meta charset="utf-8" />
+    <meta name="generator" content="Hugo 0.113.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="author" content="Shawn Smith" />
+    <meta name="description" content="A short post running through setting up automated certificate management with cert-manager" />
+    <link rel="stylesheet" href="https://helixspiral.github.io/css/main.min.88e7083eff65effb7485b6e6f38d10afbec25093a6fac42d734ce9024d3defbd.css" />
+
+    
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-TYXY2W25C1"></script>
+<script>
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.dataLayer = window.dataLayer || [];
+	function gtag(){dataLayer.push(arguments);}
+	gtag('js', new Date());
+	gtag('config', 'G-TYXY2W25C1', { 'anonymize_ip': false });
+}
+</script>
+
+    <meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://helixspiral.github.io/Microservices_Green_Cover.png"/>
+
+<meta name="twitter:title" content="Automated certificate management in local Kubernetes clusters, with local domains"/>
+<meta name="twitter:description" content="A short post running through setting up automated certificate management with cert-manager"/>
+
+    <meta property="og:title" content="Automated certificate management in local Kubernetes clusters, with local domains" />
+<meta property="og:description" content="A short post running through setting up automated certificate management with cert-manager" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://helixspiral.github.io/posts/2024-12-19-kubernetes-tls-certificates-with-local-domains/" /><meta property="og:image" content="https://helixspiral.github.io/Microservices_Green_Cover.png" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2024-12-19T00:00:00+00:00" />
+<meta property="article:modified_time" content="2024-12-19T00:00:00+00:00" />
+
+
+  </head>
+  <body>
+    <header class="app-header">
+      <a href="https://helixspiral.github.io/"><img class="app-header-avatar" src="/blog_avatar.jpg" alt="Shawn Smith" /></a>
+      <h1>Helix&#39;s Blog</h1>
+      <nav class="app-header-menu">
+          <a class="app-header-menu-item" href="/">Home</a>
+             - 
+          
+          <a class="app-header-menu-item" href="/tags/">Tags</a>
+      </nav>
+      <p>Personal blog that may contain a wide range of content</p>
+      <div class="app-header-social">
+        
+          <a target="_blank" href="https://github.com/HelixSpiral" rel="noreferrer noopener"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-github">
+  <title>github</title>
+  <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path>
+</svg></a>
+        
+          <a target="_blank" href="https://twitter.com/SpiralingHelix" rel="noreferrer noopener"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-twitter">
+  <title>twitter</title>
+  <path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"></path>
+</svg></a>
+        
+          <a target="_blank" href="https://www.linkedin.com/in/HelixSpiral/" rel="noreferrer noopener"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-linkedin">
+  <title>linkedin</title>
+  <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect x="2" y="9" width="4" height="12"></rect><circle cx="4" cy="4" r="2"></circle>
+</svg></a>
+        
+      </div>
+    </header>
+    <main class="app-container">
+      
+  <article class="post">
+    <header class="post-header">
+      <h1 class ="post-title">Automated certificate management in local Kubernetes clusters, with local domains</h1>
+      <div class="post-meta">
+        <div>
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-calendar">
+  <title>calendar</title>
+  <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line>
+</svg>
+          Dec 19, 2024
+        </div>
+        <div>
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-clock">
+  <title>clock</title>
+  <circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline>
+</svg>
+          4 min read
+        </div>
+        <div>
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tag">
+  <title>tag</title>
+  <path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7" y2="7"></line>
+</svg>
+              <a class="tag" href="https://helixspiral.github.io/tags/api/">api</a>
+              <a class="tag" href="https://helixspiral.github.io/tags/automation/">automation</a>
+              <a class="tag" href="https://helixspiral.github.io/tags/cert-manager/">cert-manager</a>
+              <a class="tag" href="https://helixspiral.github.io/tags/certificate/">certificate</a>
+              <a class="tag" href="https://helixspiral.github.io/tags/certificates/">certificates</a>
+              <a class="tag" href="https://helixspiral.github.io/tags/containers/">containers</a>
+              <a class="tag" href="https://helixspiral.github.io/tags/dns/">dns</a>
+              <a class="tag" href="https://helixspiral.github.io/tags/docker/">docker</a>
+              <a class="tag" href="https://helixspiral.github.io/tags/grpc/">grpc</a>
+              <a class="tag" href="https://helixspiral.github.io/tags/nginx/">nginx</a>
+              <a class="tag" href="https://helixspiral.github.io/tags/pfsense/">pfsense</a>
+              <a class="tag" href="https://helixspiral.github.io/tags/k8s/">k8s</a>
+              <a class="tag" href="https://helixspiral.github.io/tags/kubernetes/">kubernetes</a>
+              <a class="tag" href="https://helixspiral.github.io/tags/raspberry-pi/">raspberry-pi</a>
+              <a class="tag" href="https://helixspiral.github.io/tags/rest/">rest</a>
+              <a class="tag" href="https://helixspiral.github.io/tags/ssl/">ssl</a>
+              <a class="tag" href="https://helixspiral.github.io/tags/tls/">tls</a>
+        </div>
+      </div>
+    </header>
+    <div class="post-content">
+      <h1 id="overview--requirements--setup">Overview / Requirements / Setup</h1>
+<p>After setting up external-dns and cert-manager for the hundreth time I thought it&rsquo;d be fun to add some functionality to my homelab cluster and have proper signed certs there. This blog post is a basic outline of how to setup cert-manager to sign certificates using a certificate and key provided from an intermediary CA.</p>
+<p>I&rsquo;m using pfSense to both provide DNS to my .lan domain and generate the root and intermediary CA certs, you can use whatever platform you&rsquo;d like but the steps outlined here use pfSense.</p>
+<p>This blog post assumes some familiarity with topics like Kubernetes, DNS, and TLS certificates, and I don&rsquo;t go into how to setup your own .local/.lan domain or how to install an ingress controller on your cluster.</p>
+<p><strong>The hardware</strong>: A small 2-node k8s cluster running on Raspberry Pis</p>
+<p><strong>The software</strong>:</p>
+<ul>
+<li><strong>Pfsense</strong>: This is what I&rsquo;m using to generate the root and intermediary certificates</li>
+<li><strong>Cert-manager</strong>: This will take the intermediary certificate generated in Pfsense and use that to generate certs for all the applications we use in our cluster</li>
+<li><strong>nginx ingress controller</strong>: This is used to manage cluster ingress to applications, and what cert-manager will watch for needed certificates</li>
+</ul>
+<h1 id="configuring-pfsense">Configuring pfSense</h1>
+<p>Location: https://&lt;your-pfsense-instance&gt;/system_camanager.php</p>
+<h4 id="configuring-the-root-ca">Configuring the Root CA</h4>
+<p>First we configure the Root CA. From the above URL in the <code>Authorities</code> tab, click on <code>+ Add</code> at the bottom.</p>
+<p>The <code>Method</code> needs to be <code>Create an internal Certificate Authority</code>. All of the other settings can be whatever you&rsquo;d like.</p>
+<p>This is the certificate you&rsquo;ll install in your Operating System, docs on that here: <a href="https://superuser.com/questions/463081/adding-self-signed-certificate-to-trusted-root-certificate-store-using-command-l">https://superuser.com/questions/463081/adding-self-signed-certificate-to-trusted-root-certificate-store-using-command-l</a></p>
+<h4 id="configuring-the-intermediary-ca-for-kubernetes">Configuring the Intermediary CA for Kubernetes</h4>
+<p>In the same page as before, in the <code>Authorities</code> tab, click <code>+ Add</code> again, this time <code>Method</code> needs to be <code>Create an intermediate Certificate Authority</code>.</p>
+<p>Make sure your <code>Signing Certificate Authority</code> is the Root CA you created in the previous step.</p>
+<h4 id="creating-manual-certificates">Creating manual certificates</h4>
+<p>In your <code>Certificates</code> tab you can now create manual certificates if you&rsquo;d like.</p>
+<p>For example to create one for pfSense itself you can click <code>+ Add</code>, fill out any of the details you&rsquo;d like, making sure the <code>Common Name</code> is the domain name you&rsquo;re using for pfSense, eg: pfsense.yourdomain.lan.</p>
+<p>At the bottom you want to choose <code>Server Certificate</code>.</p>
+<p>You can now enable your certificate for the pfSense web portal in the General Setup page located here: https://&lt;your-pfsense-instance&gt;/system_advanced_admin.php</p>
+<p>Assuming you&rsquo;ve installed the root certificate you should be able to browse to your pfSense website without ssl certificate errors now.</p>
+<h1 id="installing-cert-manager-for-kubernetes">Installing cert-manager for Kubernetes</h1>
+<p>Easiest way to install cert-manager is to use Helm</p>
+<ul>
+<li>helm repo add jetstack <a href="https://charts.jetstack.io">https://charts.jetstack.io</a></li>
+<li>kubectl create namespace cert-manager</li>
+<li>helm upgrade &ndash;install cert-manager jetstack/cert-manager &ndash;namespace cert-manager &ndash;set crds.enabled=true</li>
+</ul>
+<p>Alternatively you can follow instructions on their website for other methods here: <a href="https://cert-manager.io/docs/installation/">https://cert-manager.io/docs/installation/</a></p>
+<h1 id="configuring-cert-managerconfiguringcertmanager">Configuring cert-manager<sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup></h1>
+<p>Now that we&rsquo;ve got cert-manager and all the Custom Resource Definitions setup we can configure our Certificate Authority for signing tls certs.</p>
+<ul>
+<li>
+<p>Download the certificate and key for the Intermediary CA you setup in pfSense (or other platform you used)</p>
+</li>
+<li>
+<p>Base64 encode the certificate and key.<sup id="fnref:2"><a href="#fn:2" class="footnote-ref" role="doc-noteref">2</a></sup></p>
+<ul>
+<li>You can use <code>cat certificate.pem | base64 -w0</code> on GNU-based systems</li>
+<li>You can use <code>cat certificate.pem | base64 -b0</code> on BSD-based systems (MacOS falls here)</li>
+</ul>
+</li>
+<li>
+<p>Create a Kubernetes secret containing your new base64 encoded data</p>
+</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-yaml" data-lang="yaml"><span style="display:flex;"><span><span style="color:#f92672">apiVersion</span>: <span style="color:#ae81ff">v1</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">kind</span>: <span style="color:#ae81ff">Secret</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">metadata</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">name</span>: <span style="color:#ae81ff">cert-manager-signing-creds</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">namespace</span>: <span style="color:#ae81ff">cert-manager</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">data</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">tls.crt</span>: <span style="color:#ae81ff">&lt;base64 encoded cert&gt;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">tls.key</span>: <span style="color:#ae81ff">&lt;base64 encoded key&gt;</span>
+</span></span></code></pre></div><ul>
+<li>Use kubectl to apply the new secret: <code>kubectl apply -f mySecretName.yaml</code></li>
+<li>Create a cert-manager issuer that uses that secret</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-yaml" data-lang="yaml"><span style="display:flex;"><span><span style="color:#f92672">apiVersion</span>: <span style="color:#ae81ff">cert-manager.io/v1</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">kind</span>: <span style="color:#ae81ff">ClusterIssuer</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">metadata</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">name</span>: <span style="color:#ae81ff">ca-issuer</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">namespace</span>: <span style="color:#ae81ff">cert-manager</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">spec</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">ca</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">secretName</span>: <span style="color:#ae81ff">cert-manager-signing-creds</span>
+</span></span></code></pre></div><ul>
+<li>Use kubectl to apply the new issuer: <code>kubectl apply -f myCertIssuer.yaml</code></li>
+</ul>
+<h1 id="configuring-a-service-to-use-the-cert">Configuring a service to use the cert</h1>
+<p>The easiest way to test this is to configure a basic http service</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-yaml" data-lang="yaml"><span style="display:flex;"><span><span style="color:#f92672">apiVersion</span>: <span style="color:#ae81ff">apps/v1</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">kind</span>: <span style="color:#ae81ff">Deployment</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">metadata</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">labels</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">app</span>: <span style="color:#ae81ff">http-service</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">name</span>: <span style="color:#ae81ff">http-service</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">spec</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">replicas</span>: <span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">selector</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">matchLabels</span>:
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">app</span>: <span style="color:#ae81ff">http-service</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">template</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">metadata</span>:
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">labels</span>:
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">app</span>: <span style="color:#ae81ff">http-service</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">spec</span>:
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">containers</span>:
+</span></span><span style="display:flex;"><span>      - <span style="color:#f92672">image</span>: <span style="color:#ae81ff">mccutchen/go-httpbin:latest</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">name</span>: <span style="color:#ae81ff">httpbinz</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">ports</span>:
+</span></span><span style="display:flex;"><span>        - <span style="color:#f92672">containerPort</span>: <span style="color:#ae81ff">8080</span>
+</span></span><span style="display:flex;"><span>---
+</span></span><span style="display:flex;"><span><span style="color:#f92672">apiVersion</span>: <span style="color:#ae81ff">v1</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">kind</span>: <span style="color:#ae81ff">Service</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">metadata</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">labels</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">app</span>: <span style="color:#ae81ff">http-service</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">name</span>: <span style="color:#ae81ff">http-service</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">namespace</span>: <span style="color:#ae81ff">test-ns</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">spec</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">ports</span>:
+</span></span><span style="display:flex;"><span>  - <span style="color:#f92672">port</span>: <span style="color:#ae81ff">8080</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">protocol</span>: <span style="color:#ae81ff">TCP</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">targetPort</span>: <span style="color:#ae81ff">8080</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">selector</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">app</span>: <span style="color:#ae81ff">http-service</span>
+</span></span><span style="display:flex;"><span>---
+</span></span><span style="display:flex;"><span><span style="color:#f92672">apiVersion</span>: <span style="color:#ae81ff">networking.k8s.io/v1</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">kind</span>: <span style="color:#ae81ff">Ingress</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">metadata</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">name</span>: <span style="color:#ae81ff">http-service</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">annotations</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">cert-manager.io/cluster-issuer</span>: <span style="color:#ae81ff">ca-issuer</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">spec</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">ingressClassName</span>: <span style="color:#ae81ff">nginx</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">tls</span>:
+</span></span><span style="display:flex;"><span>  - <span style="color:#f92672">hosts</span>:
+</span></span><span style="display:flex;"><span>      - <span style="color:#ae81ff">test.mydomain.lan</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">secretName</span>: <span style="color:#ae81ff">testapp-tls</span> <span style="color:#75715e"># This will be auto created by cert-manager</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">rules</span>:
+</span></span><span style="display:flex;"><span>  - <span style="color:#f92672">host</span>: <span style="color:#e6db74">&#34;test.mydomain.lan&#34;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">http</span>:
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">paths</span>:
+</span></span><span style="display:flex;"><span>      - <span style="color:#f92672">path</span>: <span style="color:#ae81ff">/</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">pathType</span>: <span style="color:#ae81ff">Prefix</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">backend</span>:
+</span></span><span style="display:flex;"><span>          <span style="color:#f92672">service</span>:
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">name</span>: <span style="color:#ae81ff">http-service</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">port</span>:
+</span></span><span style="display:flex;"><span>              <span style="color:#f92672">number</span>: <span style="color:#ae81ff">8080</span>
+</span></span></code></pre></div><ul>
+<li>Apply this file with <code>kubecyl apply -f myTestService.yaml</code>
+<ul>
+<li><strong>Note: If you&rsquo;re not using nginx as an ingress controller you may have to alter the above ingress</strong></li>
+</ul>
+</li>
+</ul>
+<h1 id="finished">Finished</h1>
+<p>All said and done, you should now be able to hit a local domain that points to a service in your Kubernetes cluster and have a valid certificate.
+<img src="images/tlsCert.png" alt="Example"></p>
+<h1 id="references">References</h1>
+<div class="footnotes" role="doc-endnotes">
+<hr>
+<ol>
+<li id="fn:1">
+<p><a href="https://cert-manager.io/docs/configuration/ca/">https://cert-manager.io/docs/configuration/ca/</a>&#160;<a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+<li id="fn:2">
+<p><a href="https://cert-manager.io/docs/configuration/ca/#deployment">https://cert-manager.io/docs/configuration/ca/#deployment</a>&#160;<a href="#fnref:2" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+</ol>
+</div>
+
+    </div>
+    <div class="post-footer">
+      
+    </div>
+  </article>
+
+    </main>
+  </body>
+</html>
