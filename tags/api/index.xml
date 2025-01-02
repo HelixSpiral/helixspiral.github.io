@@ -6,7 +6,19 @@
     <description>Recent content in api on Helix&#39;s Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Thu, 19 Dec 2024 00:00:00 +0000</lastBuildDate><atom:link href="https://helixspiral.github.io/tags/api/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Thu, 02 Jan 2025 00:00:00 +0000</lastBuildDate><atom:link href="https://helixspiral.github.io/tags/api/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Chicken Coop Update [January 2025]</title>
+      <link>https://helixspiral.github.io/posts/2025-01-02-chicken-coop-tech-update/</link>
+      <pubDate>Thu, 02 Jan 2025 00:00:00 +0000</pubDate>
+      
+      <guid>https://helixspiral.github.io/posts/2025-01-02-chicken-coop-tech-update/</guid>
+      <description>Overview This is an update to a blog post I did in January of 2024 titled Chicken Coop Tech1.
+I&amp;rsquo;m behind where I wanted to be in terms of getting this system user-friendly and open source, but I still think I&amp;rsquo;m making some good progress and wanted to share an update over the changes I&amp;rsquo;ve made.
+Architecture Components Hardware:
+Sensecap S210X temp/humidity/co2 sensors - Take readings and sends out LoRaWAN packets Helium hotspot - Reads incoming LoRaWAN packets and sends data to the Helium Console Software:</description>
+    </item>
+    
     <item>
       <title>Automated certificate management in local Kubernetes clusters, with local domains</title>
       <link>https://helixspiral.github.io/posts/2024-12-19-kubernetes-tls-certificates-with-local-domains/</link>

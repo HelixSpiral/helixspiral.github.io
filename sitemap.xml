@@ -3,15 +3,63 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
     <loc>https://helixspiral.github.io/</loc>
-    <lastmod>2024-12-19T00:00:00+00:00</lastmod>
+    <lastmod>2025-01-02T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://helixspiral.github.io/tags/api/</loc>
-    <lastmod>2024-12-19T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>https://helixspiral.github.io/posts/2024-12-19-kubernetes-tls-certificates-with-local-domains/</loc>
-    <lastmod>2024-12-19T00:00:00+00:00</lastmod>
+    <lastmod>2025-01-02T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://helixspiral.github.io/tags/automation/</loc>
+    <lastmod>2025-01-02T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://helixspiral.github.io/tags/chicken/</loc>
+    <lastmod>2025-01-02T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://helixspiral.github.io/posts/2025-01-02-chicken-coop-tech-update/</loc>
+    <lastmod>2025-01-02T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://helixspiral.github.io/tags/containers/</loc>
+    <lastmod>2025-01-02T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://helixspiral.github.io/tags/coop/</loc>
+    <lastmod>2025-01-02T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://helixspiral.github.io/tags/docker/</loc>
+    <lastmod>2025-01-02T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://helixspiral.github.io/tags/grpc/</loc>
+    <lastmod>2025-01-02T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://helixspiral.github.io/tags/helium/</loc>
+    <lastmod>2025-01-02T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://helixspiral.github.io/tags/helium-network/</loc>
+    <lastmod>2025-01-02T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://helixspiral.github.io/tags/k8s/</loc>
+    <lastmod>2025-01-02T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://helixspiral.github.io/tags/kubernetes/</loc>
+    <lastmod>2025-01-02T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://helixspiral.github.io/posts/</loc>
+    <lastmod>2025-01-02T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://helixspiral.github.io/tags/raspberry-pi/</loc>
+    <lastmod>2025-01-02T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://helixspiral.github.io/tags/rest/</loc>
+    <lastmod>2025-01-02T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://helixspiral.github.io/tags/sensecap/</loc>
+    <lastmod>2025-01-02T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://helixspiral.github.io/tags/sensors/</loc>
+    <lastmod>2025-01-02T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://helixspiral.github.io/tags/</loc>
+    <lastmod>2025-01-02T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://helixspiral.github.io/posts/2024-12-19-kubernetes-tls-certificates-with-local-domains/</loc>
     <lastmod>2024-12-19T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://helixspiral.github.io/tags/cert-manager/</loc>
@@ -23,22 +71,7 @@
     <loc>https://helixspiral.github.io/tags/certificates/</loc>
     <lastmod>2024-12-19T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://helixspiral.github.io/tags/containers/</loc>
-    <lastmod>2024-12-19T00:00:00+00:00</lastmod>
-  </url><url>
     <loc>https://helixspiral.github.io/tags/dns/</loc>
-    <lastmod>2024-12-19T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>https://helixspiral.github.io/tags/docker/</loc>
-    <lastmod>2024-12-19T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>https://helixspiral.github.io/tags/grpc/</loc>
-    <lastmod>2024-12-19T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>https://helixspiral.github.io/tags/k8s/</loc>
-    <lastmod>2024-12-19T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>https://helixspiral.github.io/tags/kubernetes/</loc>
     <lastmod>2024-12-19T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://helixspiral.github.io/tags/nginx/</loc>
@@ -47,43 +80,13 @@
     <loc>https://helixspiral.github.io/tags/pfsense/</loc>
     <lastmod>2024-12-19T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://helixspiral.github.io/posts/</loc>
-    <lastmod>2024-12-19T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>https://helixspiral.github.io/tags/raspberry-pi/</loc>
-    <lastmod>2024-12-19T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>https://helixspiral.github.io/tags/rest/</loc>
-    <lastmod>2024-12-19T00:00:00+00:00</lastmod>
-  </url><url>
     <loc>https://helixspiral.github.io/tags/ssl/</loc>
-    <lastmod>2024-12-19T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>https://helixspiral.github.io/tags/</loc>
     <lastmod>2024-12-19T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://helixspiral.github.io/tags/tls/</loc>
     <lastmod>2024-12-19T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://helixspiral.github.io/tags/chicken/</loc>
-    <lastmod>2024-01-19T00:00:00+00:00</lastmod>
-  </url><url>
     <loc>https://helixspiral.github.io/posts/2024-01-19-chicken-coop-tech/</loc>
-    <lastmod>2024-01-19T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>https://helixspiral.github.io/tags/coop/</loc>
-    <lastmod>2024-01-19T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>https://helixspiral.github.io/tags/helium/</loc>
-    <lastmod>2024-01-19T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>https://helixspiral.github.io/tags/helium-network/</loc>
-    <lastmod>2024-01-19T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>https://helixspiral.github.io/tags/sensecap/</loc>
-    <lastmod>2024-01-19T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>https://helixspiral.github.io/tags/sensors/</loc>
     <lastmod>2024-01-19T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://helixspiral.github.io/tags/build/</loc>
