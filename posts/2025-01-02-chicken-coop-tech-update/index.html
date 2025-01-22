@@ -138,13 +138,13 @@ if (!doNotTrack) {
 </ul>
 <p>All services use gRPC for communication, except for the ingest from the Helium Console due to limitations of the legacy system that never got updated to Chirpstack, to compensate for this we run a small gRPC proxy that wasn&rsquo;t pictured in the diagram above that translates HTTP POST to gRPC. In the future we&rsquo;ll be migrating off Helium and when that happens we&rsquo;ll be pure gRPC all the way through.</p>
 <h1 id="monitoring-information">Monitoring information</h1>
-<p>Currently monitoring information is a bit scuffed, but it works. While I&rsquo;m awake I tail the logs from Kubernetes and ooccasionally go outside to change how much ventilation there is based on the information I&rsquo;m getting.</p>
+<p>Currently monitoring information is a bit scuffed, but it works. While I&rsquo;m awake I tail the logs from Kubernetes and occasionally go outside to change how much ventilation there is based on the information I&rsquo;m getting.</p>
 <p>The inside information updates every 5 minutes, and the outside information updates every 10. When the temperature gets high enough I allow for more ventilation to help drop the humidity, some days where we have full sun hitting the coop I can open the human door and vent 20-30% humidity in 20-30 minutes.</p>
 <p><img src="images/coopLogs.png" alt="Kubernetes logs - Coop Info"></p>
 <p>I also run a small service that logs overnight lows in the winter that outputs the lowest temperature into a Discord channel every morning at 6, 7, and 8am. I use this to determine if the water froze, and if so I get up earlier to give them fresh water instead of waiting until I let them out between 8 and 9am.</p>
 <p><img src="images/coopDiscordMessage.png" alt="Coop Discord Logs"></p>
 <h1 id="what-about-a-ui">What about a UI?</h1>
-<p>I had a working UI in Apache Superset<sup id="fnref:3"><a href="#fn:3" class="footnote-ref" role="doc-noteref">3</a></sup> earlier this year, however I set it up in Docker for testing instead of putting it on my Kubernetes cluster. While troubleshooting an unrelated issue I purged all my Docker containers and images, and as a result I don&rsquo;t have a working UI now.</p>
+<p>I had a working UI in Apache Superset<sup id="fnref:3"><a href="#fn:3" class="footnote-ref" role="doc-noteref">3</a></sup> last year, however I set it up in Docker for testing instead of putting it on my Kubernetes cluster. While troubleshooting an unrelated issue I purged all my Docker containers and images, and as a result I don&rsquo;t have a working UI now.</p>
 <p>However! The work I did with Apache Superset was extremely easy and I do plan to spin that back up properly in my Kubernetes cluster in the near future.</p>
 <p>Here&rsquo;s a picture from the legacy test system before I mistakenly deleted it.</p>
 <p><img src="images/CoopUI.jfif" alt="Apache Superset UI"></p>
