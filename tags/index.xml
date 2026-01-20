@@ -6,7 +6,79 @@
     <description>Recent content in Tags on Helix&#39;s Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Thu, 02 Jan 2025 00:00:00 +0000</lastBuildDate><atom:link href="https://helixspiral.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Tue, 20 Jan 2026 00:00:00 +0000</lastBuildDate><atom:link href="https://helixspiral.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>aws</title>
+      <link>https://helixspiral.github.io/tags/aws/</link>
+      <pubDate>Tue, 20 Jan 2026 00:00:00 +0000</pubDate>
+      
+      <guid>https://helixspiral.github.io/tags/aws/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>cloud-identity</title>
+      <link>https://helixspiral.github.io/tags/cloud-identity/</link>
+      <pubDate>Tue, 20 Jan 2026 00:00:00 +0000</pubDate>
+      
+      <guid>https://helixspiral.github.io/tags/cloud-identity/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>iam-roles-for-service-accounts</title>
+      <link>https://helixspiral.github.io/tags/iam-roles-for-service-accounts/</link>
+      <pubDate>Tue, 20 Jan 2026 00:00:00 +0000</pubDate>
+      
+      <guid>https://helixspiral.github.io/tags/iam-roles-for-service-accounts/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>identity-federation</title>
+      <link>https://helixspiral.github.io/tags/identity-federation/</link>
+      <pubDate>Tue, 20 Jan 2026 00:00:00 +0000</pubDate>
+      
+      <guid>https://helixspiral.github.io/tags/identity-federation/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>kubernetes</title>
+      <link>https://helixspiral.github.io/tags/kubernetes/</link>
+      <pubDate>Tue, 20 Jan 2026 00:00:00 +0000</pubDate>
+      
+      <guid>https://helixspiral.github.io/tags/kubernetes/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>platform-engineering</title>
+      <link>https://helixspiral.github.io/tags/platform-engineering/</link>
+      <pubDate>Tue, 20 Jan 2026 00:00:00 +0000</pubDate>
+      
+      <guid>https://helixspiral.github.io/tags/platform-engineering/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>security</title>
+      <link>https://helixspiral.github.io/tags/security/</link>
+      <pubDate>Tue, 20 Jan 2026 00:00:00 +0000</pubDate>
+      
+      <guid>https://helixspiral.github.io/tags/security/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>workload-identity-federation</title>
+      <link>https://helixspiral.github.io/tags/workload-identity-federation/</link>
+      <pubDate>Tue, 20 Jan 2026 00:00:00 +0000</pubDate>
+      
+      <guid>https://helixspiral.github.io/tags/workload-identity-federation/</guid>
+      <description></description>
+    </item>
+    
     <item>
       <title>api</title>
       <link>https://helixspiral.github.io/tags/api/</link>
@@ -94,15 +166,6 @@
       <pubDate>Thu, 02 Jan 2025 00:00:00 +0000</pubDate>
       
       <guid>https://helixspiral.github.io/tags/k8s/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>kubernetes</title>
-      <link>https://helixspiral.github.io/tags/kubernetes/</link>
-      <pubDate>Thu, 02 Jan 2025 00:00:00 +0000</pubDate>
-      
-      <guid>https://helixspiral.github.io/tags/kubernetes/</guid>
       <description></description>
     </item>
     

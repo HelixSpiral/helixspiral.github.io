@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>workload-identity-federation on Helix&#39;s Blog</title>
+    <link>https://helixspiral.github.io/tags/workload-identity-federation/</link>
+    <description>Recent content in workload-identity-federation on Helix&#39;s Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Tue, 20 Jan 2026 00:00:00 +0000</lastBuildDate><atom:link href="https://helixspiral.github.io/tags/workload-identity-federation/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Workload Identity Federation in Baremetal Kubernetes Clusters</title>
+      <link>https://helixspiral.github.io/posts/2026-01-20-kubernetes-workload-identity-federation/</link>
+      <pubDate>Tue, 20 Jan 2026 00:00:00 +0000</pubDate>
+      
+      <guid>https://helixspiral.github.io/posts/2026-01-20-kubernetes-workload-identity-federation/</guid>
+      <description>Overview Self-managed Kubernetes clusters can support the same identity and security features as managed services, but getting there requires some extra setup.
+In this post we&amp;rsquo;ll build a bare-metal Kubernetes cluster and configure it to access AWS resources in the same way an EKS (or other AWS-hosted Kubernetes) cluster does, without relying on long-lived credentials like access keys. To accomplish this, we&amp;rsquo;ll use IAM Roles for Service Accounts (IRSA), allowing Kubernetes workloads to assume AWS IAM roles using short-lived, federated credentials.</description>
+    </item>
+    
+  </channel>
+</rss>

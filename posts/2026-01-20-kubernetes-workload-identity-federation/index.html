@@ -1,0 +1,218 @@
+<!doctype html>
+<html lang="en-us">
+  <head>
+    <title>Workload Identity Federation in Baremetal Kubernetes Clusters // Helix&#39;s Blog</title>
+    <meta charset="utf-8" />
+    <meta name="generator" content="Hugo 0.113.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="author" content="Shawn Smith" />
+    <meta name="description" content="A practical walkthrough of Workload Identity Federation for bare-metal Kubernetes, using AWS as the reference implementation." />
+    <link rel="stylesheet" href="https://helixspiral.github.io/css/main.min.88e7083eff65effb7485b6e6f38d10afbec25093a6fac42d734ce9024d3defbd.css" />
+
+    
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-TYXY2W25C1"></script>
+<script>
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.dataLayer = window.dataLayer || [];
+	function gtag(){dataLayer.push(arguments);}
+	gtag('js', new Date());
+	gtag('config', 'G-TYXY2W25C1', { 'anonymize_ip': false });
+}
+</script>
+
+    <meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://helixspiral.github.io/Microservices_Green_Cover.png"/>
+
+<meta name="twitter:title" content="Workload Identity Federation in Baremetal Kubernetes Clusters"/>
+<meta name="twitter:description" content="A practical walkthrough of Workload Identity Federation for bare-metal Kubernetes, using AWS as the reference implementation."/>
+
+    <meta property="og:title" content="Workload Identity Federation in Baremetal Kubernetes Clusters" />
+<meta property="og:description" content="A practical walkthrough of Workload Identity Federation for bare-metal Kubernetes, using AWS as the reference implementation." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://helixspiral.github.io/posts/2026-01-20-kubernetes-workload-identity-federation/" /><meta property="og:image" content="https://helixspiral.github.io/Microservices_Green_Cover.png" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2026-01-20T00:00:00+00:00" />
+<meta property="article:modified_time" content="2026-01-20T00:00:00+00:00" />
+
+
+  </head>
+  <body>
+    <header class="app-header">
+      <a href="https://helixspiral.github.io/"><img class="app-header-avatar" src="/blog_avatar.jpg" alt="Shawn Smith" /></a>
+      <h1>Helix&#39;s Blog</h1>
+      <nav class="app-header-menu">
+          <a class="app-header-menu-item" href="/">Home</a>
+             - 
+          
+          <a class="app-header-menu-item" href="/tags/">Tags</a>
+      </nav>
+      <p>Personal blog that may contain a wide range of content</p>
+      <div class="app-header-social">
+        
+          <a target="_blank" href="https://github.com/HelixSpiral" rel="noreferrer noopener"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-github">
+  <title>github</title>
+  <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path>
+</svg></a>
+        
+          <a target="_blank" href="https://twitter.com/SpiralingHelix" rel="noreferrer noopener"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-twitter">
+  <title>twitter</title>
+  <path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"></path>
+</svg></a>
+        
+          <a target="_blank" href="https://www.linkedin.com/in/HelixSpiral/" rel="noreferrer noopener"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-linkedin">
+  <title>linkedin</title>
+  <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect x="2" y="9" width="4" height="12"></rect><circle cx="4" cy="4" r="2"></circle>
+</svg></a>
+        
+      </div>
+    </header>
+    <main class="app-container">
+      
+  <article class="post">
+    <header class="post-header">
+      <h1 class ="post-title">Workload Identity Federation in Baremetal Kubernetes Clusters</h1>
+      <div class="post-meta">
+        <div>
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-calendar">
+  <title>calendar</title>
+  <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line>
+</svg>
+          Jan 20, 2026
+        </div>
+        <div>
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-clock">
+  <title>clock</title>
+  <circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline>
+</svg>
+          5 min read
+        </div>
+        <div>
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tag">
+  <title>tag</title>
+  <path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7" y2="7"></line>
+</svg>
+              <a class="tag" href="https://helixspiral.github.io/tags/aws/">aws</a>
+              <a class="tag" href="https://helixspiral.github.io/tags/cloud-identity/">cloud-identity</a>
+              <a class="tag" href="https://helixspiral.github.io/tags/iam-roles-for-service-accounts/">iam-roles-for-service-accounts</a>
+              <a class="tag" href="https://helixspiral.github.io/tags/identity-federation/">identity-federation</a>
+              <a class="tag" href="https://helixspiral.github.io/tags/kubernetes/">kubernetes</a>
+              <a class="tag" href="https://helixspiral.github.io/tags/platform-engineering/">platform-engineering</a>
+              <a class="tag" href="https://helixspiral.github.io/tags/security/">security</a>
+              <a class="tag" href="https://helixspiral.github.io/tags/workload-identity-federation/">workload-identity-federation</a>
+        </div>
+      </div>
+    </header>
+    <div class="post-content">
+      <h1 id="overview">Overview</h1>
+<p>Self-managed Kubernetes clusters can support the same identity and security features as managed services, but getting there requires some extra setup.</p>
+<p>In this post we&rsquo;ll build a bare-metal Kubernetes cluster and configure it to access AWS resources in the same way an EKS (or other AWS-hosted Kubernetes) cluster does, without relying on long-lived credentials like access keys. To accomplish this, we&rsquo;ll use IAM Roles for Service Accounts (IRSA), allowing Kubernetes workloads to assume AWS IAM roles using short-lived, federated credentials.</p>
+<h1 id="what-is-irsa--how-does-it-work">What is IRSA &amp; How does it work</h1>
+<p>The super short explanation of IRSA is it allows you to map Service Accounts in a Kubernetes Cluster to IAM Roles in AWS, using the Service Account Token (which is just a JWT) provided by Kubernetes.</p>
+<p>To get IRSA working we need a few things setup, in AWS we need:</p>
+<ul>
+<li>To configure a Federated Access provider</li>
+<li>The AWS role(s) we want to assume need to have a trust policy that allows our federated access provider</li>
+</ul>
+<p>In our Kubernetes cluster we need to configure:</p>
+<ul>
+<li>The Service Account Issuer URL must be reachable from AWS</li>
+<li>A projected volume with the serviceAccountToken we&rsquo;re going to use needs to be configured on pods that want access to AWS</li>
+</ul>
+<h1 id="configuring-the-kubernetes-api-server">Configuring the Kubernetes API Server</h1>
+<p>Find your <code>kube-apiserver</code> pod in the <code>kube-system</code> namespace and describe it to get something like the following:</p>
+<pre tabindex="0"><code>...
+    Command:
+      kube-apiserver
+...
+      --anonymous-auth=true
+      --service-account-issuer=https://kubernetes.mydomain.lan
+      --service-account-key-file=/etc/kubernetes/pki/sa.pub
+      --service-account-signing-key-file=/etc/kubernetes/pki/sa.key
+...
+</code></pre><p>If your issuer is already public then you&rsquo;re good to go, if it&rsquo;s not you&rsquo;ll need to edit the manifest located in <code>/etc/kubernetes/manifests/kubernetes/kube-apiserver.yaml</code> on your control-plane node(s). Note: Don&rsquo;t use <code>kubectl edit ...</code> for this, it wont persist.</p>
+<p>Add an additional <code>--service-account-issuer=https://new.publicly.accessible.domain.com</code> above your current issuer. This will allow your API server to start generating tokens with the new issuer, but also to accept tokens from the old issuer as tokens get rotated out for the newer issuer.</p>
+<p>Note: This will cause downtime for the control-plane as some things are restarted so plan accordingly. Not as much of an issue in clusters with a highly available control-plane.</p>
+<h1 id="ensuring-public-acess-to-your-issuer">Ensuring public acess to your issuer</h1>
+<p>Run <code>kubectl get --raw /.well-known/openid-configuration</code> and get your <code>jwks_uri</code> from the output, this is what systems need to hit to get your signing keys. For me this is <code>/openid/v1/jwks</code>.</p>
+<p>If you can&rsquo;t access that url outside of your cluster with a regular HTTP(S) request, apply the following configuration to allow anonymous access to it.</p>
+<pre tabindex="0"><code>apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: anonymous-access-jwks
+rules:
+- nonResourceURLs:
+  - &#34;/openid/v1/jwks&#34;
+  verbs:
+  - get
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: anonymous-access-jwks
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: anonymous-access-jwks
+subjects:
+- kind: Group
+  name: system:unauthenticated
+</code></pre><h1 id="configuring-a-projected-volume-with-short-lived-tokens">Configuring a projected volume with short-lived tokens</h1>
+<p>The Kubernetes documentation is amazing so I&rsquo;m not going to say much on this, you&rsquo;re just going to create a projected volume for each pod that wants to access AWS: <a href="https://kubernetes.io/docs/concepts/storage/projected-volumes/#serviceaccounttoken">https://kubernetes.io/docs/concepts/storage/projected-volumes/#serviceaccounttoken</a>. Make sure you set your token audience to whatever is in your IAM trust policy, standard practice is to use <code>sts.amazonaws.com</code>.</p>
+<p>In EKS clusters this happens with a mutating webhook that mutates any pod with an attached service account that has an annotation <code>eks.amazonaws.com/role-arn=role-here</code>. For brevity I wont be setting that up in this blog, but will do another in the future with that functionality for a full feature parity with EKS.</p>
+<p>You also need to set a couple environment variables:</p>
+<ul>
+<li><code>AWS_WEB_IDENTITY_TOKEN_FILE</code> and the value should be the path to your Service Accout Token. Standard practice is to use the path <code>/var/run/secrets/&lt;descriptor&gt;/serviceaccount/token</code>. In EKS the <code>&lt;descriptor&gt;</code> is <code>eks.amazonaws.com</code>. Anything descriptive related to AWS would be sufficient, or you can use what AWS does.</li>
+<li><code>AWS_ROLE_ARN</code> and the value should be the role in AWS you want to assume.</li>
+</ul>
+<h1 id="configuring-federated-access-provider">Configuring Federated Access Provider</h1>
+<p>We can quickly configure this with the below Terraform snippit, otherwise you can configure it via the AWS console in the IAM section under Identity Providers.</p>
+<pre tabindex="0"><code>data &#34;tls_certificate&#34; &#34;k8s_baremetal&#34; {
+    url = &#34;new.publicly.accessible.domain.com&#34;
+}
+
+resource &#34;aws_iam_openid_connect_provider&#34; &#34;k8s_baremetal&#34; {
+    url = &#34;new.publicly.accessible.domain.com&#34;
+    client_id_list = [&#34;sts.amazonaws.com&#34;]
+    thumbprint_list = [
+        for cert in data.tls_certificate.k8s_baremetal.certificates : cert.sha1_fingerprint
+    ]
+}
+</code></pre><h1 id="configuring-aws-role-trust-policy">Configuring AWS Role Trust Policy</h1>
+<p>For every role we want to assume from within our cluster we have to configure a Trust Policy that defines which pods are able to assume the role.</p>
+<p>An example would look like this:</p>
+<pre tabindex="0"><code>{
+    &#34;Version&#34;:&#34;2012-10-17&#34;,		 	 	 
+    &#34;Statement&#34;: [
+        {
+            &#34;Effect&#34;: &#34;Allow&#34;,
+            &#34;Principal&#34;: {
+                &#34;Federated&#34;: &#34;arn:aws:iam::111122223333:oidc-provider/oidc.eks.us-east-1.amazonaws.com/id/EXAMPLED539D4633E53DE1B71EXAMPLE&#34;
+            },
+            &#34;Action&#34;: &#34;sts:AssumeRoleWithWebIdentity&#34;,
+            &#34;Condition&#34;: {
+                &#34;StringEquals&#34;: {
+                    &#34;oidc.eks.us-east-1.amazonaws.com/id/EXAMPLED539D4633E53DE1B71EXAMPLE:sub&#34;: &#34;system:serviceaccount:my-k8s-namespace:my-service-account&#34;,
+                    &#34;oidc.eks.us-east-1.amazonaws.com/id/EXAMPLED539D4633E53DE1B71EXAMPLE:aud&#34;: &#34;sts.amazonaws.com&#34;
+                }
+            }
+        }
+    ]
+}
+</code></pre><p><code>Statement.Principal.Federated</code> is our Federated Access Provider from the previous step.</p>
+<p><code>Statement.Action</code> is the permission we want the pod to have, in this case we want it to be able to assume any role this trust policy is attached to.</p>
+<p><code>Statement.Condition.StringEquals.*</code> are the two claims from our Kubernetes JWT that we want to restrict this policy with. The one ending in <code>aud</code> is short for Audience, and in this case our Audience is the Secure Token Service at AWS. The one ending in <code>sub</code> is the Subject, for Kubernetes the format is <code>system:serviceaccount:&lt;namespace&gt;:&lt;service account name&gt;</code>.</p>
+<p>If you want a more general Trust Policy you can swap this StringEquals part out for a StringLike and use wildcards like <code>system:serviceaccount:&lt;namespace&gt;:*</code>, though generally not recommended.</p>
+<h1 id="end-result">End Result</h1>
+<p>Throwing all of this together we <em>should</em> now be able to federate access to AWS from our Kubernetes pods, as long as the applications were written using the AWS SDK and understand how to use the <code>AWS_WEB_IDENTITY_TOKEN_FILE</code>. Digging further into how to use that file is outside the scope of this post but in practice this &ldquo;just works&rdquo; for most applications.</p>
+<p>In a future post, I plan to dive into setting up a mutating webhook so we can annotate service accounts in the same way we do in an EKS cluster. For now, this demonstrates the core functionality required to get workload identity federation working on a self-managed Kubernetes cluster.</p>
+<p>While this walkthrough is AWS-focused, the approach itself is not. The same workload identity federation pattern can be applied to any platform that supports federated identity, such as Google Cloud, Azure, Snowflake, Trino, and others, making this a reusable model rather than a one-off AWS solution.</p>
+
+    </div>
+    <div class="post-footer">
+      
+    </div>
+  </article>
+
+    </main>
+  </body>
+</html>
